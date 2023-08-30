@@ -2,18 +2,18 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreatePostInput = {
+export type CreateCommentInput = {
   id?: string | null,
-  title: string,
   content: string,
+  postCommentsId?: string | null,
 };
 
-export type ModelPostConditionInput = {
-  title?: ModelStringInput | null,
+export type ModelCommentConditionInput = {
   content?: ModelStringInput | null,
-  and?: Array< ModelPostConditionInput | null > | null,
-  or?: Array< ModelPostConditionInput | null > | null,
-  not?: ModelPostConditionInput | null,
+  and?: Array< ModelCommentConditionInput | null > | null,
+  or?: Array< ModelCommentConditionInput | null > | null,
+  not?: ModelCommentConditionInput | null,
+  postCommentsId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -56,56 +56,6 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Post = {
-  __typename: "Post",
-  id: string,
-  title: string,
-  content: string,
-  comments?: ModelCommentConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelCommentConnection = {
-  __typename: "ModelCommentConnection",
-  items:  Array<Comment | null >,
-  nextToken?: string | null,
-};
-
-export type Comment = {
-  __typename: "Comment",
-  id: string,
-  post?: Post | null,
-  content: string,
-  createdAt: string,
-  updatedAt: string,
-  postCommentsId?: string | null,
-};
-
-export type UpdatePostInput = {
-  id: string,
-  title?: string | null,
-  content?: string | null,
-};
-
-export type DeletePostInput = {
-  id: string,
-};
-
-export type CreateCommentInput = {
-  id?: string | null,
-  content: string,
-  postCommentsId?: string | null,
-};
-
-export type ModelCommentConditionInput = {
-  content?: ModelStringInput | null,
-  and?: Array< ModelCommentConditionInput | null > | null,
-  or?: Array< ModelCommentConditionInput | null > | null,
-  not?: ModelCommentConditionInput | null,
-  postCommentsId?: ModelIDInput | null,
-};
-
 export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
@@ -122,6 +72,32 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type Comment = {
+  __typename: "Comment",
+  id: string,
+  post?: Post | null,
+  content: string,
+  createdAt: string,
+  updatedAt: string,
+  postCommentsId?: string | null,
+};
+
+export type Post = {
+  __typename: "Post",
+  title: string,
+  content: string,
+  comments?: ModelCommentConnection | null,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelCommentConnection = {
+  __typename: "ModelCommentConnection",
+  items:  Array<Comment | null >,
+  nextToken?: string | null,
+};
+
 export type UpdateCommentInput = {
   id: string,
   content?: string | null,
@@ -132,8 +108,40 @@ export type DeleteCommentInput = {
   id: string,
 };
 
-export type ModelPostFilterInput = {
+export type CreatePostInput = {
+  title: string,
+  content: string,
+  id?: string | null,
+};
+
+export type ModelPostConditionInput = {
+  title?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  and?: Array< ModelPostConditionInput | null > | null,
+  or?: Array< ModelPostConditionInput | null > | null,
+  not?: ModelPostConditionInput | null,
+};
+
+export type UpdatePostInput = {
+  title?: string | null,
+  content?: string | null,
+  id: string,
+};
+
+export type DeletePostInput = {
+  id: string,
+};
+
+export type ModelCommentFilterInput = {
   id?: ModelIDInput | null,
+  content?: ModelStringInput | null,
+  and?: Array< ModelCommentFilterInput | null > | null,
+  or?: Array< ModelCommentFilterInput | null > | null,
+  not?: ModelCommentFilterInput | null,
+  postCommentsId?: ModelIDInput | null,
+};
+
+export type ModelPostFilterInput = {
   title?: ModelStringInput | null,
   content?: ModelStringInput | null,
   and?: Array< ModelPostFilterInput | null > | null,
@@ -147,21 +155,11 @@ export type ModelPostConnection = {
   nextToken?: string | null,
 };
 
-export type ModelCommentFilterInput = {
-  id?: ModelIDInput | null,
-  content?: ModelStringInput | null,
-  and?: Array< ModelCommentFilterInput | null > | null,
-  or?: Array< ModelCommentFilterInput | null > | null,
-  not?: ModelCommentFilterInput | null,
-  postCommentsId?: ModelIDInput | null,
-};
-
-export type ModelSubscriptionPostFilterInput = {
+export type ModelSubscriptionCommentFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  title?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionPostFilterInput | null > | null,
-  or?: Array< ModelSubscriptionPostFilterInput | null > | null,
+  and?: Array< ModelSubscriptionCommentFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCommentFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -194,95 +192,11 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionCommentFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
+export type ModelSubscriptionPostFilterInput = {
+  title?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCommentFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCommentFilterInput | null > | null,
-};
-
-export type CreatePostMutationVariables = {
-  input: CreatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type CreatePostMutation = {
-  createPost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    content: string,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdatePostMutationVariables = {
-  input: UpdatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type UpdatePostMutation = {
-  updatePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    content: string,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeletePostMutationVariables = {
-  input: DeletePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type DeletePostMutation = {
-  deletePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    content: string,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
+  and?: Array< ModelSubscriptionPostFilterInput | null > | null,
+  or?: Array< ModelSubscriptionPostFilterInput | null > | null,
 };
 
 export type CreateCommentMutationVariables = {
@@ -296,13 +210,13 @@ export type CreateCommentMutation = {
     id: string,
     post?:  {
       __typename: "Post",
-      id: string,
       title: string,
       content: string,
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -324,13 +238,13 @@ export type UpdateCommentMutation = {
     id: string,
     post?:  {
       __typename: "Post",
-      id: string,
       title: string,
       content: string,
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -352,13 +266,13 @@ export type DeleteCommentMutation = {
     id: string,
     post?:  {
       __typename: "Post",
-      id: string,
       title: string,
       content: string,
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -369,14 +283,14 @@ export type DeleteCommentMutation = {
   } | null,
 };
 
-export type GetPostQueryVariables = {
-  id: string,
+export type CreatePostMutationVariables = {
+  input: CreatePostInput,
+  condition?: ModelPostConditionInput | null,
 };
 
-export type GetPostQuery = {
-  getPost?:  {
+export type CreatePostMutation = {
+  createPost?:  {
     __typename: "Post",
-    id: string,
     title: string,
     content: string,
     comments?:  {
@@ -391,33 +305,65 @@ export type GetPostQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListPostsQueryVariables = {
-  filter?: ModelPostFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
+export type UpdatePostMutationVariables = {
+  input: UpdatePostInput,
+  condition?: ModelPostConditionInput | null,
 };
 
-export type ListPostsQuery = {
-  listPosts?:  {
-    __typename: "ModelPostConnection",
-    items:  Array< {
-      __typename: "Post",
-      id: string,
-      title: string,
-      content: string,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
+export type UpdatePostMutation = {
+  updatePost?:  {
+    __typename: "Post",
+    title: string,
+    content: string,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        postCommentsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePostMutationVariables = {
+  input: DeletePostInput,
+  condition?: ModelPostConditionInput | null,
+};
+
+export type DeletePostMutation = {
+  deletePost?:  {
+    __typename: "Post",
+    title: string,
+    content: string,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        postCommentsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -431,13 +377,13 @@ export type GetCommentQuery = {
     id: string,
     post?:  {
       __typename: "Post",
-      id: string,
       title: string,
       content: string,
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -462,9 +408,9 @@ export type ListCommentsQuery = {
       id: string,
       post?:  {
         __typename: "Post",
-        id: string,
         title: string,
         content: string,
+        id: string,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -477,14 +423,13 @@ export type ListCommentsQuery = {
   } | null,
 };
 
-export type OnCreatePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
+export type GetPostQueryVariables = {
+  id: string,
 };
 
-export type OnCreatePostSubscription = {
-  onCreatePost?:  {
+export type GetPostQuery = {
+  getPost?:  {
     __typename: "Post",
-    id: string,
     title: string,
     content: string,
     comments?:  {
@@ -499,62 +444,34 @@ export type OnCreatePostSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdatePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
+export type ListPostsQueryVariables = {
+  filter?: ModelPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
-export type OnUpdatePostSubscription = {
-  onUpdatePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    content: string,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeletePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
-};
-
-export type OnDeletePostSubscription = {
-  onDeletePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    content: string,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
+export type ListPostsQuery = {
+  listPosts?:  {
+    __typename: "ModelPostConnection",
+    items:  Array< {
+      __typename: "Post",
+      title: string,
+      content: string,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -568,13 +485,13 @@ export type OnCreateCommentSubscription = {
     id: string,
     post?:  {
       __typename: "Post",
-      id: string,
       title: string,
       content: string,
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -595,13 +512,13 @@ export type OnUpdateCommentSubscription = {
     id: string,
     post?:  {
       __typename: "Post",
-      id: string,
       title: string,
       content: string,
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -622,13 +539,13 @@ export type OnDeleteCommentSubscription = {
     id: string,
     post?:  {
       __typename: "Post",
-      id: string,
       title: string,
       content: string,
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
       } | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -636,5 +553,86 @@ export type OnDeleteCommentSubscription = {
     createdAt: string,
     updatedAt: string,
     postCommentsId?: string | null,
+  } | null,
+};
+
+export type OnCreatePostSubscriptionVariables = {
+  filter?: ModelSubscriptionPostFilterInput | null,
+};
+
+export type OnCreatePostSubscription = {
+  onCreatePost?:  {
+    __typename: "Post",
+    title: string,
+    content: string,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        postCommentsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePostSubscriptionVariables = {
+  filter?: ModelSubscriptionPostFilterInput | null,
+};
+
+export type OnUpdatePostSubscription = {
+  onUpdatePost?:  {
+    __typename: "Post",
+    title: string,
+    content: string,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        postCommentsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePostSubscriptionVariables = {
+  filter?: ModelSubscriptionPostFilterInput | null,
+};
+
+export type OnDeletePostSubscription = {
+  onDeletePost?:  {
+    __typename: "Post",
+    title: string,
+    content: string,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        postCommentsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };

@@ -2,87 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createPost = /* GraphQL */ `
-  mutation CreatePost(
-    $input: CreatePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    createPost(input: $input, condition: $condition) {
-      id
-      title
-      content
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          postCommentsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updatePost = /* GraphQL */ `
-  mutation UpdatePost(
-    $input: UpdatePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    updatePost(input: $input, condition: $condition) {
-      id
-      title
-      content
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          postCommentsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deletePost = /* GraphQL */ `
-  mutation DeletePost(
-    $input: DeletePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    deletePost(input: $input, condition: $condition) {
-      id
-      title
-      content
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          postCommentsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const createComment = /* GraphQL */ `
   mutation CreateComment(
     $input: CreateCommentInput!
@@ -91,13 +10,13 @@ export const createComment = /* GraphQL */ `
     createComment(input: $input, condition: $condition) {
       id
       post {
-        id
         title
         content
         comments {
           nextToken
           __typename
         }
+        id
         createdAt
         updatedAt
         __typename
@@ -118,13 +37,13 @@ export const updateComment = /* GraphQL */ `
     updateComment(input: $input, condition: $condition) {
       id
       post {
-        id
         title
         content
         comments {
           nextToken
           __typename
         }
+        id
         createdAt
         updatedAt
         __typename
@@ -145,13 +64,13 @@ export const deleteComment = /* GraphQL */ `
     deleteComment(input: $input, condition: $condition) {
       id
       post {
-        id
         title
         content
         comments {
           nextToken
           __typename
         }
+        id
         createdAt
         updatedAt
         __typename
@@ -160,6 +79,87 @@ export const deleteComment = /* GraphQL */ `
       createdAt
       updatedAt
       postCommentsId
+      __typename
+    }
+  }
+`;
+export const createPost = /* GraphQL */ `
+  mutation CreatePost(
+    $input: CreatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    createPost(input: $input, condition: $condition) {
+      title
+      content
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updatePost = /* GraphQL */ `
+  mutation UpdatePost(
+    $input: UpdatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    updatePost(input: $input, condition: $condition) {
+      title
+      content
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deletePost = /* GraphQL */ `
+  mutation DeletePost(
+    $input: DeletePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    deletePost(input: $input, condition: $condition) {
+      title
+      content
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      id
+      createdAt
+      updatedAt
       __typename
     }
   }
