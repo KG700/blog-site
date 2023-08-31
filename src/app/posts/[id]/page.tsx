@@ -1,10 +1,23 @@
-import { Amplify } from "aws-amplify";
-import config from '../../../aws-exports';
+import { API } from "aws-amplify";
+import { listPosts, getPost } from "@/graphql/queries";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+ 
+export default async function Page({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
+    const { data } = await API.graphql({
+        query: getPost, variables: { id }
+    }) as any
+    const post = data.getPost;
 
-Amplify.configure({ ...config, ssr: true });
-
-export default function Post() {
     return (
-        <h1>The post</h1>
+        <div>
+            <h1 className="text-5xl mt-4 font-semibold tracking-wide">{post.title}</h1>
+            <div className="mt-8">
+                <ReactMarkdown className="prose">{post.content}</ReactMarkdown>
+            </div>
+        </div>
     )
 }
