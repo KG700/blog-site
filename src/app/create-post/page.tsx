@@ -5,11 +5,13 @@ import { useState } from 'react';
 import { API } from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/navigation';
-import SimpleMDE from 'react-simplemde-editor';
-import 'easymde/dist/easymde.min.css';
+import dynamic from "next/dynamic";
 import { createPost } from '../../graphql/mutations';
 import { Amplify } from "aws-amplify";
 import config from '../../aws-exports'
+import 'easymde/dist/easymde.min.css';
+
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false })
 
 Amplify.configure({ ...config, ssr: true });
 
