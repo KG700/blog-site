@@ -2,78 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onCreateComment(filter: $filter) {
-      id
-      post {
-        title
-        content
-        comments {
-          nextToken
-          __typename
-        }
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onUpdateComment(filter: $filter) {
-      id
-      post {
-        title
-        content
-        comments {
-          nextToken
-          __typename
-        }
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
-    onDeleteComment(filter: $filter) {
-      id
-      post {
-        title
-        content
-        comments {
-          nextToken
-          __typename
-        }
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
 export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
     onCreatePost(filter: $filter) {
@@ -82,10 +10,12 @@ export const onCreatePost = /* GraphQL */ `
       comments {
         items {
           id
+          username
           content
           createdAt
           updatedAt
           postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -106,10 +36,12 @@ export const onUpdatePost = /* GraphQL */ `
       comments {
         items {
           id
+          username
           content
           createdAt
           updatedAt
           postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -130,10 +62,12 @@ export const onDeletePost = /* GraphQL */ `
       comments {
         items {
           id
+          username
           content
           createdAt
           updatedAt
           postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -142,6 +76,93 @@ export const onDeletePost = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateComment = /* GraphQL */ `
+  subscription OnCreateComment(
+    $filter: ModelSubscriptionCommentFilterInput
+    $owner: String
+  ) {
+    onCreateComment(filter: $filter, owner: $owner) {
+      id
+      username
+      post {
+        title
+        content
+        comments {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      content
+      createdAt
+      updatedAt
+      postCommentsId
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateComment = /* GraphQL */ `
+  subscription OnUpdateComment(
+    $filter: ModelSubscriptionCommentFilterInput
+    $owner: String
+  ) {
+    onUpdateComment(filter: $filter, owner: $owner) {
+      id
+      username
+      post {
+        title
+        content
+        comments {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      content
+      createdAt
+      updatedAt
+      postCommentsId
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteComment = /* GraphQL */ `
+  subscription OnDeleteComment(
+    $filter: ModelSubscriptionCommentFilterInput
+    $owner: String
+  ) {
+    onDeleteComment(filter: $filter, owner: $owner) {
+      id
+      username
+      post {
+        title
+        content
+        comments {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      content
+      createdAt
+      updatedAt
+      postCommentsId
+      owner
       __typename
     }
   }

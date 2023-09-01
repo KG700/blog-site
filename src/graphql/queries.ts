@@ -2,58 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
-      id
-      post {
-        title
-        content
-        comments {
-          nextToken
-          __typename
-        }
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        post {
-          title
-          content
-          id
-          createdAt
-          updatedAt
-          __typename
-        }
-        content
-        createdAt
-        updatedAt
-        postCommentsId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
 export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
@@ -62,10 +10,12 @@ export const getPost = /* GraphQL */ `
       comments {
         items {
           id
+          username
           content
           createdAt
           updatedAt
           postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -95,6 +45,102 @@ export const listPosts = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getComment = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      id
+      username
+      post {
+        title
+        content
+        comments {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      content
+      createdAt
+      updatedAt
+      postCommentsId
+      owner
+      __typename
+    }
+  }
+`;
+export const listComments = /* GraphQL */ `
+  query ListComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        username
+        post {
+          title
+          content
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        content
+        createdAt
+        updatedAt
+        postCommentsId
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const commentsByIdAndUsername = /* GraphQL */ `
+  query CommentsByIdAndUsername(
+    $id: ID!
+    $username: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    commentsByIdAndUsername(
+      id: $id
+      username: $username
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        username
+        post {
+          title
+          content
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        content
+        createdAt
+        updatedAt
+        postCommentsId
+        owner
         __typename
       }
       nextToken

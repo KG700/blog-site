@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1 className='text-3xl font-semibold tracking-wide mt-6 mb-2'>Posts</h1>
+      <h1 className='text-3xl font-semibold tracking-wide mt-6 mb-2'>Blog Posts:</h1>
       {
         posts.map((post, index) => (
           <Link key={index} href={`/posts/${(post as any).id}`}>

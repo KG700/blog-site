@@ -2,87 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createComment = /* GraphQL */ `
-  mutation CreateComment(
-    $input: CreateCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    createComment(input: $input, condition: $condition) {
-      id
-      post {
-        title
-        content
-        comments {
-          nextToken
-          __typename
-        }
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const updateComment = /* GraphQL */ `
-  mutation UpdateComment(
-    $input: UpdateCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    updateComment(input: $input, condition: $condition) {
-      id
-      post {
-        title
-        content
-        comments {
-          nextToken
-          __typename
-        }
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const deleteComment = /* GraphQL */ `
-  mutation DeleteComment(
-    $input: DeleteCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    deleteComment(input: $input, condition: $condition) {
-      id
-      post {
-        title
-        content
-        comments {
-          nextToken
-          __typename
-        }
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
 export const createPost = /* GraphQL */ `
   mutation CreatePost(
     $input: CreatePostInput!
@@ -94,10 +13,12 @@ export const createPost = /* GraphQL */ `
       comments {
         items {
           id
+          username
           content
           createdAt
           updatedAt
           postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -121,10 +42,12 @@ export const updatePost = /* GraphQL */ `
       comments {
         items {
           id
+          username
           content
           createdAt
           updatedAt
           postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -148,10 +71,12 @@ export const deletePost = /* GraphQL */ `
       comments {
         items {
           id
+          username
           content
           createdAt
           updatedAt
           postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -160,6 +85,93 @@ export const deletePost = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      __typename
+    }
+  }
+`;
+export const createComment = /* GraphQL */ `
+  mutation CreateComment(
+    $input: CreateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    createComment(input: $input, condition: $condition) {
+      id
+      username
+      post {
+        title
+        content
+        comments {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      content
+      createdAt
+      updatedAt
+      postCommentsId
+      owner
+      __typename
+    }
+  }
+`;
+export const updateComment = /* GraphQL */ `
+  mutation UpdateComment(
+    $input: UpdateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    updateComment(input: $input, condition: $condition) {
+      id
+      username
+      post {
+        title
+        content
+        comments {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      content
+      createdAt
+      updatedAt
+      postCommentsId
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteComment = /* GraphQL */ `
+  mutation DeleteComment(
+    $input: DeleteCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    deleteComment(input: $input, condition: $condition) {
+      id
+      username
+      post {
+        title
+        content
+        comments {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      content
+      createdAt
+      updatedAt
+      postCommentsId
+      owner
       __typename
     }
   }

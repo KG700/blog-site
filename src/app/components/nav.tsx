@@ -29,7 +29,7 @@ export default function Nav() {
     return (
         <nav className='p-6 border-b border-gray-300'>
             <Link href='/'>
-                <span className='mr-6 cursor-pointer'>Posts</span>
+                <span className='mr-6 cursor-pointer'>Blog Posts</span>
             </Link>
 
             { signedInUser && (

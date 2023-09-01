@@ -36,7 +36,7 @@ function CreatePost() {
             variables: { input: post },
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
-
+        
         router.push(`/posts/${id}`);
     }
 
