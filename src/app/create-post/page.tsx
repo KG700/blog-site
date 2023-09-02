@@ -1,5 +1,6 @@
 "use client";
 
+import type { Post } from '@/app/types';
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useState } from 'react';
 import { API } from 'aws-amplify';
@@ -15,10 +16,10 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false }
 
 Amplify.configure({ ...config, ssr: true });
 
-const initialState = { id: '', title: '', content: '' };
+const initialState: Post = { id: '', title: '', content: '' };
 
 function CreatePost() {
-    const [ post, setPost ] = useState(initialState);
+    const [ post, setPost ] = useState<Post>(initialState);
     const { title, content } = post;
     const router = useRouter();
 

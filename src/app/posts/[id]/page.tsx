@@ -1,16 +1,30 @@
+"use client";
+
+import type { Post } from '@/app/types';
+import { useEffect, useState } from 'react';
 import { API } from "aws-amplify";
-import { listPosts, getPost } from "@/graphql/queries";
+import { getPost } from "@/graphql/queries";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
  
-export default async function Page({
+export default function Page({
   params: { id },
 }: {
   params: { id: string }
 }) {
-    const { data } = await API.graphql({
-        query: getPost, variables: { id }
-    }) as any
-    const post = data.getPost;
+    const [ post, setPost ] = useState<Post | null>(null);
+
+    useEffect(() => {
+        fetchPost();
+        async function fetchPost() {
+            if (!id) return;
+            const { data } = await API.graphql({
+                query: getPost, variables: { id }
+            }) as { data: { getPost: Post } }
+            setPost(data.getPost);
+        }
+    }, [id])
+
+    if (!post) return null;
 
     return (
         <div>
