@@ -17,6 +17,9 @@
       },
       "auth": {
         "blogsite76a2e90d": {}
+      },
+      "storage": {
+        "blogImages": {}
       }
     }
   }

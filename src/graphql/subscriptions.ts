@@ -7,6 +7,7 @@ export const onCreatePost = /* GraphQL */ `
     onCreatePost(filter: $filter) {
       title
       content
+      coverImage
       comments {
         items {
           id
@@ -33,6 +34,7 @@ export const onUpdatePost = /* GraphQL */ `
     onUpdatePost(filter: $filter) {
       title
       content
+      coverImage
       comments {
         items {
           id
@@ -59,6 +61,7 @@ export const onDeletePost = /* GraphQL */ `
     onDeletePost(filter: $filter) {
       title
       content
+      coverImage
       comments {
         items {
           id
@@ -91,6 +94,7 @@ export const onCreateComment = /* GraphQL */ `
       post {
         title
         content
+        coverImage
         comments {
           nextToken
           __typename
@@ -120,6 +124,7 @@ export const onUpdateComment = /* GraphQL */ `
       post {
         title
         content
+        coverImage
         comments {
           nextToken
           __typename
@@ -149,6 +154,7 @@ export const onDeleteComment = /* GraphQL */ `
       post {
         title
         content
+        coverImage
         comments {
           nextToken
           __typename

@@ -30,7 +30,6 @@ export default function Home() {
 
   async function getSignedInUser() {
     const isSignedIn = await authListener()
-    console.log(`from Home: ${isSignedIn}`)
     setSignedInUser(isSignedIn)
   }
 

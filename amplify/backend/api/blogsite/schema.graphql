@@ -10,6 +10,7 @@ type Post @model
   # id: ID! @index(name: "postsByUsername", sortKeyFields: ["username"])
   title: String!
   content: String!
+  coverImage: String
   comments: [Comment] @hasMany
 }
 
