@@ -36,10 +36,10 @@ export default function Page({
     }
 
     return (
-        <div>
-            <h1 className="text-5xl mt-4 font-semibold tracking-wide">{post.title}</h1>
-            { coverImage && <img src={coverImage} className='mt-4' /> }
-            <div className="mt-8">
+        <div className="container px-10">
+            <h1 className="text-5xl mt-4 font-semibold tracking-wide text-center">{post.title}</h1>
+            { coverImage && <img src={coverImage} className='object-cover h-96 w-3/5 mt-4 mx-auto' /> }
+            <div className="mt-8 mx-auto">
                 <ReactMarkdown className="prose">{post.content}</ReactMarkdown>
             </div>
         </div>
