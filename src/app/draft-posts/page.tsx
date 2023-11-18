@@ -2,29 +2,23 @@
 
 import type { Post } from "@/app/types";
 import { useState, useEffect } from "react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from "aws-amplify";
-import { Amplify } from "aws-amplify";
-import config from "../aws-exports";
 import { listPosts } from "@/graphql/queries";
 import { deletePost } from "@/graphql/mutations";
-import { authListener } from "@/app/utils/authListener";
-import Card from "@/app/components/card";
+import Card from "../components/card";
 
-Amplify.configure({ ...config, ssr: true });
-
-export default function Home() {
+function DraftPosts() {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [signedInUser, setSignedInUser] = useState(false);
 
   useEffect(() => {
     fetchPosts();
-    getSignedInUser();
   }, []);
 
   async function fetchPosts() {
     const variables = {
       filter: {
-        isPublished: { eq: true },
+        isPublished: { eq: false },
       },
     };
     const { data } = (await API.graphql({
@@ -32,11 +26,6 @@ export default function Home() {
       variables: variables,
     })) as { data: { listPosts: { items: Post[] } } };
     setPosts(data.listPosts.items);
-  }
-
-  async function getSignedInUser() {
-    const isSignedIn = await authListener();
-    setSignedInUser(isSignedIn);
   }
 
   async function deleteBlogPost(id: string) {
@@ -52,20 +41,24 @@ export default function Home() {
   return (
     <div className="container px-10">
       <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2 text-center">
-        Blog Posts:
+        Draft Blog Posts:
       </h1>
-      {posts.map((post, index) => (
-        <Card
-          key={post.id}
-          id={post.id}
-          title={post.title}
-          content={post.content}
-          isPublished={post.isPublished}
-          coverImage={post.coverImage}
-          signedInUser={signedInUser}
-          deleteFn={deleteBlogPost}
-        />
-      ))}
+      {posts.map((post) => {
+        return (
+          <Card
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            content={post.content}
+            isPublished={post.isPublished}
+            coverImage={post.coverImage}
+            signedInUser={true}
+            deleteFn={deleteBlogPost}
+          />
+        );
+      })}
     </div>
   );
 }
+
+export default withAuthenticator(DraftPosts);
