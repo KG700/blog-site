@@ -39,7 +39,7 @@ function DraftPosts() {
   }
 
   return (
-    <div className="container px-10">
+    <div className="container px-10 mx-auto">
       <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2 text-center">
         Draft Blog Posts:
       </h1>

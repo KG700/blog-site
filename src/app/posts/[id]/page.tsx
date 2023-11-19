@@ -37,7 +37,7 @@ export default function Page({ params: { id } }: ParamsInterface) {
   }
 
   return (
-    <div className="container px-10">
+    <div className="container px-10 mx-auto">
       <h1 className="text-5xl mt-4 font-semibold tracking-wide text-center">
         {post.title}
       </h1>

@@ -90,7 +90,7 @@ function CreatePost() {
   }
 
   return (
-    <div>
+    <div className="container px-10 mx-auto">
       <h1 className="text-3xl font-semibold tracking-wide mt-6">
         Create new post
       </h1>

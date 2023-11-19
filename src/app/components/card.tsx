@@ -32,11 +32,11 @@ export default function Card({
 
   console.log({ coverImage });
   return (
-    <div className="max-w-lg rounded overflow-hidden shadow-lg mb-8 mx-auto">
+    <div className="bg-white text-blog-blue max-w-lg rounded overflow-hidden shadow-lg mb-8 mx-auto">
       <Link href={`/posts/${id}`}>
         {coverImageUrl && (
           <img
-            className="object-cover h-60 w-full"
+            className="object-cover h-60 w-full p-3"
             src={coverImageUrl}
             alt="Sunset in the mountains"
           />
