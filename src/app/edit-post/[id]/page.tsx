@@ -97,7 +97,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         name="title"
         placeholder="Title"
         value={post.title}
-        className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
+        className="border-b pb-2 text-2xl my-4 focus:outline-none w-full font-bold text-gray-500 placeholder-gray-500 y-2"
       />
       {coverImage && (
         <img
