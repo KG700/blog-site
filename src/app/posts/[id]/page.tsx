@@ -44,10 +44,10 @@ export default function Page({ params: { id } }: ParamsInterface) {
       {coverImage && (
         <img
           src={coverImage}
-          className="object-cover h-96 w-3/5 mt-4 mx-auto"
+          className="object-cover h-96 w-4/5 mt-4 mx-auto"
         />
       )}
-      <div className="mt-8 mx-auto">
+      <div className="container mt-8 w-4/5 p-4 bg-white bg-opacity-75">
         <ReactMarkdown className="prose">{post.content}</ReactMarkdown>
       </div>
     </div>
