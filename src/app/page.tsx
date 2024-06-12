@@ -8,7 +8,7 @@ import config from "../aws-exports";
 import { listPosts } from "@/graphql/queries";
 import { deletePost } from "@/graphql/mutations";
 import { authListener } from "@/app/utils/authListener";
-import Card from "@/app/components/card";
+import BlogTile from "@/app/components/blog-tile";
 
 Amplify.configure({ ...config, ssr: true });
 
@@ -70,7 +70,7 @@ export default function Home() {
         </h1>
         <div className="mt-60">
           {posts.map((post, index) => (
-            <Card
+            <BlogTile
               key={post.id}
               id={post.id}
               title={post.title}

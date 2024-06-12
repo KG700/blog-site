@@ -6,7 +6,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from "aws-amplify";
 import { listPosts } from "@/graphql/queries";
 import { deletePost } from "@/graphql/mutations";
-import Card from "../components/card";
+import BlogTile from "../components/blog-tile";
 
 function DraftPosts() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -45,7 +45,7 @@ function DraftPosts() {
       </h1>
       {posts.map((post) => {
         return (
-          <Card
+          <BlogTile
             key={post.id}
             id={post.id}
             title={post.title}

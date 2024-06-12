@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { API, Storage } from "aws-amplify";
 import { getPost } from "@/graphql/queries";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import BlogDetails from "../../components/blog-details";
 
 interface ParamsInterface {
   params: { id: string };
@@ -41,6 +42,7 @@ export default function Page({ params: { id } }: ParamsInterface) {
       <h1 className="text-5xl mt-4 font-semibold tracking-wide text-center">
         {post.title}
       </h1>
+      <BlogDetails />
       {coverImage && (
         <img
           src={coverImage}
