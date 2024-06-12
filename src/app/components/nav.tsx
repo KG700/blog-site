@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 
 export default function Nav() {
   const [signedInUser, setSignedInUser] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     authListener();
@@ -29,24 +30,24 @@ export default function Nav() {
 
   return (
     <nav className="p-6 border-b border-gray-300">
-      <Link href="/" className={ usePathname() === '/' ? 'underline' : ''}>
+      <Link href="/" className={ pathname === '/' ? 'underline' : ''}>
         <span className="mr-6 cursor-pointer">Blog Posts</span>
       </Link>
 
       {signedInUser && (
-        <Link href="/draft-posts" className={ usePathname() === '/draft-posts' ? 'underline' : ''}>
+        <Link href="/draft-posts" className={ pathname === '/draft-posts' ? 'underline' : ''}>
           <span className="mr-6 cursor-pointer">Draft Posts</span>
         </Link>
       )}
 
       {signedInUser && (
-        <Link href="/create-post" className={ usePathname() === '/create-post' ? 'underline' : ''}>
+        <Link href="/create-post" className={ pathname === '/create-post' ? 'underline' : ''}>
           <span className="mr-6 cursor-pointer">Create Post</span>
         </Link>
       )}
 
       {signedInUser && (
-        <Link href="/admin" className={ usePathname() === '/admin' ? 'underline' : ''}>
+        <Link href="/admin" className={ pathname === '/admin' ? 'underline' : ''}>
           <span className="mr-6 cursor-pointer">Admin</span>
         </Link>
       )}
