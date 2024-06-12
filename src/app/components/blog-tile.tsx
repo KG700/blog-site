@@ -2,13 +2,14 @@ import { Post } from "@/app/types";
 import { useEffect, useState } from "react";
 import { Storage } from "aws-amplify";
 import Link from "next/link";
+import BlogDetails from "./blog-details";
 
 interface Props extends Post {
   signedInUser: boolean;
   deleteFn: (id: string) => {};
 }
 
-export default function Card({
+export default function BlogTile({
   id,
   title,
   content,
@@ -43,6 +44,7 @@ export default function Card({
         )}
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{title}</div>
+          <BlogDetails />
           <p className="text-gray-700 text-base">{content}</p>
           <p>This post has been published: {isPublished.toString()}</p>
         </div>
