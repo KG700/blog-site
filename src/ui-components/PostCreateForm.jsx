@@ -14,8 +14,9 @@ import {
   TextField,
 } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { API } from "aws-amplify";
+import { generateClient } from "aws-amplify/api";
 import { createPost } from "../graphql/mutations";
+const client = generateClient();
 export default function PostCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -32,6 +33,7 @@ export default function PostCreateForm(props) {
     content: "",
     coverImage: "",
     isPublished: false,
+    author: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [content, setContent] = React.useState(initialValues.content);
@@ -39,12 +41,14 @@ export default function PostCreateForm(props) {
   const [isPublished, setIsPublished] = React.useState(
     initialValues.isPublished
   );
+  const [author, setAuthor] = React.useState(initialValues.author);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setTitle(initialValues.title);
     setContent(initialValues.content);
     setCoverImage(initialValues.coverImage);
     setIsPublished(initialValues.isPublished);
+    setAuthor(initialValues.author);
     setErrors({});
   };
   const validations = {
@@ -52,6 +56,7 @@ export default function PostCreateForm(props) {
     content: [{ type: "Required" }],
     coverImage: [],
     isPublished: [],
+    author: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -83,6 +88,7 @@ export default function PostCreateForm(props) {
           content,
           coverImage,
           isPublished,
+          author,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -112,7 +118,7 @@ export default function PostCreateForm(props) {
               modelFields[key] = null;
             }
           });
-          await API.graphql({
+          await client.graphql({
             query: createPost.replaceAll("__typename", ""),
             variables: {
               input: {
@@ -149,6 +155,7 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               isPublished,
+              author,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -176,6 +183,7 @@ export default function PostCreateForm(props) {
               content: value,
               coverImage,
               isPublished,
+              author,
             };
             const result = onChange(modelFields);
             value = result?.content ?? value;
@@ -203,6 +211,7 @@ export default function PostCreateForm(props) {
               content,
               coverImage: value,
               isPublished,
+              author,
             };
             const result = onChange(modelFields);
             value = result?.coverImage ?? value;
@@ -230,6 +239,7 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               isPublished: value,
+              author,
             };
             const result = onChange(modelFields);
             value = result?.isPublished ?? value;
@@ -244,6 +254,34 @@ export default function PostCreateForm(props) {
         hasError={errors.isPublished?.hasError}
         {...getOverrideProps(overrides, "isPublished")}
       ></SwitchField>
+      <TextField
+        label="Author"
+        isRequired={false}
+        isReadOnly={false}
+        value={author}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              content,
+              coverImage,
+              isPublished,
+              author: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.author ?? value;
+          }
+          if (errors.author?.hasError) {
+            runValidationTasks("author", value);
+          }
+          setAuthor(value);
+        }}
+        onBlur={() => runValidationTasks("author", author)}
+        errorMessage={errors.author?.errorMessage}
+        hasError={errors.author?.hasError}
+        {...getOverrideProps(overrides, "author")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

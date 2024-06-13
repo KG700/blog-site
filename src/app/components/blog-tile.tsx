@@ -1,16 +1,23 @@
-import { Post } from "@/app/types";
+import { Post } from "../../API";
 import { useEffect, useState } from "react";
 import { Storage } from "aws-amplify";
 import Link from "next/link";
 import BlogDetails from "./blog-details";
 
-interface Props extends Post {
+interface Props {
+  id: string,
+  author: string,
+  title: string,
+  content: string,
+  coverImage: string | null,
+  isPublished: boolean,
   signedInUser: boolean;
   deleteFn: (id: string) => {};
 }
 
 export default function BlogTile({
   id,
+  author,
   title,
   content,
   coverImage,
@@ -44,9 +51,11 @@ export default function BlogTile({
         )}
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{title}</div>
-          <BlogDetails />
+          <BlogDetails 
+            author={author} 
+          />
           <p className="text-gray-700 text-base">{content}</p>
-          <p>This post has been published: {isPublished.toString()}</p>
+          <p>This post has been published: {isPublished?.toString()}</p>
         </div>
         <div className="px-6 pt-4 pb-2">
           {/* <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/app/types";
+import type { Post, ListPostsQuery } from "../../API";
 import { useState, useEffect } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from "aws-amplify";
@@ -9,7 +9,7 @@ import { deletePost } from "@/graphql/mutations";
 import BlogTile from "../components/blog-tile";
 
 function DraftPosts() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<(Post | null)[]>([]);
 
   useEffect(() => {
     fetchPosts();
@@ -24,8 +24,8 @@ function DraftPosts() {
     const { data } = (await API.graphql({
       query: listPosts,
       variables: variables,
-    })) as { data: { listPosts: { items: Post[] } } };
-    setPosts(data.listPosts.items);
+    })) as { data: ListPostsQuery };
+    setPosts(data.listPosts?.items ?? []);
   }
 
   async function deleteBlogPost(id: string) {
@@ -46,12 +46,13 @@ function DraftPosts() {
       {posts.map((post) => {
         return (
           <BlogTile
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            content={post.content}
-            isPublished={post.isPublished}
-            coverImage={post.coverImage}
+            key={post?.id ?? ""}
+            id={post?.id ?? ""}
+            author={post?.author ?? ""}
+            title={post?.title ?? ""}
+            content={post?.content ?? ""}
+            isPublished={post?.isPublished ?? false}
+            coverImage={post?.coverImage ?? null}
             signedInUser={true}
             deleteFn={deleteBlogPost}
           />

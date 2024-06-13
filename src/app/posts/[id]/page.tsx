@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/app/types";
+import type { Post, GetPostQuery } from "../../../API";
 import { useEffect, useState } from "react";
 import { API, Storage } from "aws-amplify";
 import { getPost } from "@/graphql/queries";
@@ -22,8 +22,8 @@ export default function Page({ params: { id } }: ParamsInterface) {
       const { data } = (await API.graphql({
         query: getPost,
         variables: { id },
-      })) as { data: { getPost: Post } };
-      setPost(data.getPost);
+      })) as { data: GetPostQuery };
+      setPost(data.getPost ?? null);
       await updateCoverImage();
     }
   }, [id, post?.coverImage]);
@@ -42,7 +42,9 @@ export default function Page({ params: { id } }: ParamsInterface) {
       <h1 className="text-5xl mt-4 font-semibold tracking-wide text-center">
         {post.title}
       </h1>
-      <BlogDetails />
+      <BlogDetails 
+        author={post.author ?? ""}
+      />
       {coverImage && (
         <img
           src={coverImage}
