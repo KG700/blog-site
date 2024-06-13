@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/app/types";
+import type { Post } from "../API";
 import { useState, useEffect } from "react";
 import { Storage, API } from "aws-amplify";
 import { Amplify } from "aws-amplify";
@@ -75,8 +75,8 @@ export default function Home() {
               id={post.id}
               title={post.title}
               content={post.content}
-              isPublished={post.isPublished}
-              coverImage={post.coverImage}
+              isPublished={post.isPublished ?? false}
+              coverImage={post.coverImage ?? ""}
               signedInUser={signedInUser}
               deleteFn={deleteBlogPost}
             />

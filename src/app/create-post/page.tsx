@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/app/types";
+import type { Post } from "../../API";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useState, useRef } from "react";
 import { API, Storage } from "aws-amplify";
@@ -19,10 +19,13 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 Amplify.configure({ ...config, ssr: true });
 
 const initialState: Post = {
+  __typename: "Post",
   id: "",
   title: "",
   content: "",
   isPublished: false,
+  createdAt: "",
+  updatedAt: ""
 };
 
 function CreatePost() {

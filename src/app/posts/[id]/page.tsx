@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/app/types";
+import type { Post } from "../../../API";
 import { useEffect, useState } from "react";
 import { API, Storage } from "aws-amplify";
 import { getPost } from "@/graphql/queries";

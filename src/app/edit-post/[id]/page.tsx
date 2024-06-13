@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/app/types";
+import type { Post } from "../../../API";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useEffect, useState, useRef } from "react";
 import { API, Storage } from "aws-amplify";

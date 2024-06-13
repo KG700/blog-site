@@ -12,6 +12,7 @@ type Post
   coverImage: String
   comments: [Comment] @hasMany
   isPublished: Boolean
+  author: String!
 }
 
 type Comment

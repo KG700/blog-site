@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "@/app/types";
+import type { Post } from "../../API";
 import { useState, useEffect } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { API } from "aws-amplify";
@@ -50,8 +50,8 @@ function DraftPosts() {
             id={post.id}
             title={post.title}
             content={post.content}
-            isPublished={post.isPublished}
-            coverImage={post.coverImage}
+            isPublished={post.isPublished ?? false}
+            coverImage={post.coverImage ?? ""}
             signedInUser={true}
             deleteFn={deleteBlogPost}
           />
