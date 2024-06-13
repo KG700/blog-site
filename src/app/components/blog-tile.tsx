@@ -8,7 +8,7 @@ interface Props {
   id: string,
   title: string,
   content: string,
-  coverImage: string,
+  coverImage: string | null,
   isPublished: boolean,
   signedInUser: boolean;
   deleteFn: (id: string) => {};

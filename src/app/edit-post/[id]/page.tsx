@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "../../../API";
+import type { Post, UpdatePostInput, GetPostQuery } from "../../../API";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useEffect, useState, useRef } from "react";
 import { API, Storage } from "aws-amplify";
@@ -20,7 +20,7 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 Amplify.configure({ ...config, ssr: true });
 
 function EditPost({ params: { id } }: { params: { id: string } }) {
-  const [post, setPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<UpdatePostInput | null>(null);
   const [coverImage, setCoverImage] = useState<any>(null);
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -32,12 +32,12 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
       const { data } = (await API.graphql({
         query: getPost,
         variables: { id },
-      })) as { data: { getPost: Post } };
-      if (data.getPost.coverImage) {
+      })) as { data: GetPostQuery };
+      if (data.getPost?.coverImage) {
         const imageKey = await Storage.get(data.getPost.coverImage);
         setCoverImage(imageKey);
       }
-      setPost(data.getPost);
+      setPost(data.getPost ?? null);
     }
   }, [id, post?.coverImage]);
 
@@ -96,7 +96,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         onChange={onChange}
         name="title"
         placeholder="Title"
-        value={post.title}
+        value={post.title ?? ""}
         className="border-b pb-2 text-2xl my-4 focus:outline-none w-full font-bold text-gray-500 placeholder-gray-500 y-2"
       />
       {coverImage && (
@@ -110,7 +110,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         />
       )}
       <SimpleMDE
-        value={post.content}
+        value={post.content ?? ""}
         onChange={(value) => setPost({ ...post, content: value })}
       />
       <input

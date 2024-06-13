@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "../../API";
+import type { CreatePostInput } from "../../API";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useState, useRef } from "react";
 import { API, Storage } from "aws-amplify";
@@ -18,18 +18,17 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 
 Amplify.configure({ ...config, ssr: true });
 
-const initialState: Post = {
-  __typename: "Post",
+const initialState: CreatePostInput = {
   id: "",
+  author: "",
   title: "",
   content: "",
-  isPublished: false,
-  createdAt: "",
-  updatedAt: ""
+  coverImage: null,
+  isPublished: false
 };
 
 function CreatePost() {
-  const [post, setPost] = useState<Post>(initialState);
+  const [post, setPost] = useState<CreatePostInput>(initialState);
   const [image, setImage] = useState<Blob | null>(null);
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();

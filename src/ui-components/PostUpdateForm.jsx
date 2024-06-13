@@ -14,9 +14,10 @@ import {
   TextField,
 } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { API } from "aws-amplify";
+import { generateClient } from "aws-amplify/api";
 import { getPost } from "../graphql/queries";
 import { updatePost } from "../graphql/mutations";
+const client = generateClient();
 export default function PostUpdateForm(props) {
   const {
     id: idProp,
@@ -34,6 +35,7 @@ export default function PostUpdateForm(props) {
     content: "",
     coverImage: "",
     isPublished: false,
+    author: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [content, setContent] = React.useState(initialValues.content);
@@ -41,6 +43,7 @@ export default function PostUpdateForm(props) {
   const [isPublished, setIsPublished] = React.useState(
     initialValues.isPublished
   );
+  const [author, setAuthor] = React.useState(initialValues.author);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = postRecord
@@ -50,6 +53,7 @@ export default function PostUpdateForm(props) {
     setContent(cleanValues.content);
     setCoverImage(cleanValues.coverImage);
     setIsPublished(cleanValues.isPublished);
+    setAuthor(cleanValues.author);
     setErrors({});
   };
   const [postRecord, setPostRecord] = React.useState(postModelProp);
@@ -57,7 +61,7 @@ export default function PostUpdateForm(props) {
     const queryData = async () => {
       const record = idProp
         ? (
-            await API.graphql({
+            await client.graphql({
               query: getPost.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
@@ -73,6 +77,7 @@ export default function PostUpdateForm(props) {
     content: [{ type: "Required" }],
     coverImage: [],
     isPublished: [],
+    author: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -104,6 +109,7 @@ export default function PostUpdateForm(props) {
           content,
           coverImage: coverImage ?? null,
           isPublished: isPublished ?? null,
+          author: author ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -133,7 +139,7 @@ export default function PostUpdateForm(props) {
               modelFields[key] = null;
             }
           });
-          await API.graphql({
+          await client.graphql({
             query: updatePost.replaceAll("__typename", ""),
             variables: {
               input: {
@@ -168,6 +174,7 @@ export default function PostUpdateForm(props) {
               content,
               coverImage,
               isPublished,
+              author,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -195,6 +202,7 @@ export default function PostUpdateForm(props) {
               content: value,
               coverImage,
               isPublished,
+              author,
             };
             const result = onChange(modelFields);
             value = result?.content ?? value;
@@ -222,6 +230,7 @@ export default function PostUpdateForm(props) {
               content,
               coverImage: value,
               isPublished,
+              author,
             };
             const result = onChange(modelFields);
             value = result?.coverImage ?? value;
@@ -249,6 +258,7 @@ export default function PostUpdateForm(props) {
               content,
               coverImage,
               isPublished: value,
+              author,
             };
             const result = onChange(modelFields);
             value = result?.isPublished ?? value;
@@ -263,6 +273,34 @@ export default function PostUpdateForm(props) {
         hasError={errors.isPublished?.hasError}
         {...getOverrideProps(overrides, "isPublished")}
       ></SwitchField>
+      <TextField
+        label="Author"
+        isRequired={false}
+        isReadOnly={false}
+        value={author}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              content,
+              coverImage,
+              isPublished,
+              author: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.author ?? value;
+          }
+          if (errors.author?.hasError) {
+            runValidationTasks("author", value);
+          }
+          setAuthor(value);
+        }}
+        onBlur={() => runValidationTasks("author", author)}
+        errorMessage={errors.author?.errorMessage}
+        hasError={errors.author?.hasError}
+        {...getOverrideProps(overrides, "author")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

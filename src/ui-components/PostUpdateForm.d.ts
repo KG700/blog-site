@@ -27,12 +27,14 @@ export declare type PostUpdateFormInputValues = {
     content?: string;
     coverImage?: string;
     isPublished?: boolean;
+    author?: string;
 };
 export declare type PostUpdateFormValidationValues = {
     title?: ValidationFunction<string>;
     content?: ValidationFunction<string>;
     coverImage?: ValidationFunction<string>;
     isPublished?: ValidationFunction<boolean>;
+    author?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PostUpdateFormOverridesProps = {
@@ -41,6 +43,7 @@ export declare type PostUpdateFormOverridesProps = {
     content?: PrimitiveOverrideProps<TextFieldProps>;
     coverImage?: PrimitiveOverrideProps<TextFieldProps>;
     isPublished?: PrimitiveOverrideProps<SwitchFieldProps>;
+    author?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type PostUpdateFormProps = React.PropsWithChildren<{
     overrides?: PostUpdateFormOverridesProps | undefined | null;

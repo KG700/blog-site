@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post } from "../API";
+import type { Post, ListPostsQuery } from "../API";
 import { useState, useEffect } from "react";
 import { Storage, API } from "aws-amplify";
 import { Amplify } from "aws-amplify";
@@ -13,7 +13,7 @@ import BlogTile from "@/app/components/blog-tile";
 Amplify.configure({ ...config, ssr: true });
 
 export default function Home() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<(Post | null)[]>([]);
   const [signedInUser, setSignedInUser] = useState(false);
   const [coverImageUrl, setCoverImageUrl] = useState("");
 
@@ -32,8 +32,8 @@ export default function Home() {
     const { data } = (await API.graphql({
       query: listPosts,
       variables: variables,
-    })) as { data: { listPosts: { items: Post[] } } };
-    setPosts(data.listPosts.items);
+    })) as { data: ListPostsQuery };
+    setPosts(data.listPosts?.items ?? []);
   }
 
   async function getSignedInUser() {
@@ -71,12 +71,12 @@ export default function Home() {
         <div className="mt-60">
           {posts.map((post, index) => (
             <BlogTile
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              content={post.content}
-              isPublished={post.isPublished ?? false}
-              coverImage={post.coverImage ?? ""}
+              key={post?.id}
+              id={post?.id ?? ""}
+              title={post?.title ?? ""}
+              content={post?.content ?? ""}
+              isPublished={post?.isPublished ?? false}
+              coverImage={post?.coverImage ?? null}
               signedInUser={signedInUser}
               deleteFn={deleteBlogPost}
             />
