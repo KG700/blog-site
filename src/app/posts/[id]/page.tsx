@@ -42,7 +42,9 @@ export default function Page({ params: { id } }: ParamsInterface) {
       <h1 className="text-5xl mt-4 font-semibold tracking-wide text-center">
         {post.title}
       </h1>
-      <BlogDetails />
+      <BlogDetails 
+        author={post.author ?? ""}
+      />
       {coverImage && (
         <img
           src={coverImage}

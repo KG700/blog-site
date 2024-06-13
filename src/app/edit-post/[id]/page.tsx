@@ -94,6 +94,13 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Edit post</h1>
       <input
         onChange={onChange}
+        name="author"
+        placeholder="Author's name"
+        value={post.author ?? ""}
+        className="border-b pb-2 text-2xl my-4 focus:outline-none w-full font-bold text-gray-500 placeholder-gray-500 y-2"
+      />
+      <input
+        onChange={onChange}
         name="title"
         placeholder="Title"
         value={post.title ?? ""}

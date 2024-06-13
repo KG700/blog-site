@@ -73,6 +73,7 @@ export default function Home() {
             <BlogTile
               key={post?.id}
               id={post?.id ?? ""}
+              author={post?.author ?? ""}
               title={post?.title ?? ""}
               content={post?.content ?? ""}
               isPublished={post?.isPublished ?? false}

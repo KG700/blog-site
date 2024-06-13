@@ -6,6 +6,7 @@ import BlogDetails from "./blog-details";
 
 interface Props {
   id: string,
+  author: string,
   title: string,
   content: string,
   coverImage: string | null,
@@ -16,6 +17,7 @@ interface Props {
 
 export default function BlogTile({
   id,
+  author,
   title,
   content,
   coverImage,
@@ -49,7 +51,9 @@ export default function BlogTile({
         )}
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{title}</div>
-          <BlogDetails />
+          <BlogDetails 
+            author={author} 
+          />
           <p className="text-gray-700 text-base">{content}</p>
           <p>This post has been published: {isPublished?.toString()}</p>
         </div>
