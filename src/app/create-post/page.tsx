@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import { createPost } from "../../graphql/mutations";
 import { Amplify } from "aws-amplify";
 import config from "../../aws-exports";
+import BlogButton from "../components/blog-button";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -96,6 +97,21 @@ function CreatePost() {
       <h1 className="text-3xl font-semibold tracking-wide mt-6">
         Create new post
       </h1>
+      <BlogButton
+        label="Upload Image"
+        type="secondary"
+        onClickFn={uploadImage}
+      />
+      <BlogButton
+        label="Save"
+        type="secondary"
+        onClickFn={savePost}
+      />
+      <BlogButton
+        label="Publish"
+        type="primary"
+        onClickFn={publishPost}
+      />
       <input
         onChange={onChange}
         name="author"
@@ -121,26 +137,6 @@ function CreatePost() {
         className="absolute w-0 h-0"
         onChange={handleChange}
       />
-      <button
-        className="bg-purple-600 text-white font-semibold px-8 py-2 rounded-lg mr-2"
-        onClick={uploadImage}
-      >
-        Upload Cover Image
-      </button>
-      <button
-        type="button"
-        className="mb-4 bg-blue-600 text-white font-semibold px-8 py-2 rounded-lg mr-2"
-        onClick={savePost}
-      >
-        Save
-      </button>
-      <button
-        type="button"
-        className="mb-4 bg-blue-600 text-white font-semibold px-8 py-2 rounded-lg"
-        onClick={publishPost}
-      >
-        Publish
-      </button>
     </div>
   );
 }

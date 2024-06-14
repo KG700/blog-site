@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Storage } from "aws-amplify";
 import Link from "next/link";
 import BlogDetails from "./blog-details";
+import BlogButton from "./blog-button";
 
 interface Props {
   id: string,
@@ -57,26 +58,23 @@ export default function BlogTile({
           <p className="text-gray-700 text-base">{content}</p>
           <p>This post has been published: {isPublished?.toString()}</p>
         </div>
-        <div className="px-6 pt-4 pb-2">
-          {/* <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span> */}
-        </div>
+        
       </Link>
       {signedInUser && (
-        <Link href={`/edit-post/${id}`} className="text-sm mr-4 text-blue-500">
-          Edit Post
-        </Link>
+        <BlogButton 
+          label="Edit Post"
+          type="secondary"
+          onClickFn={() => {location.href = `/edit-post/${id}`}}
+        />
       )}
       {signedInUser && (
-        <button
-          className="text-sm mr-4 text-red-500"
-          onClick={() => {
+        <BlogButton
+          label="Delete Post"
+          type="warning"
+          onClickFn={() => {
             deleteFn(id);
           }}
-        >
-          Delete Post
-        </button>
+        />
       )}
     </div>
   );
