@@ -6,6 +6,8 @@ import { API, Storage } from "aws-amplify";
 import { getPost } from "@/graphql/queries";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import BlogDetails from "../../components/blog-details";
+import { authListener } from "@/app/utils/authListener";
+import BlogButton from "@/app/components/blog-button";
 
 interface ParamsInterface {
   params: { id: string };
@@ -14,8 +16,10 @@ interface ParamsInterface {
 export default function Page({ params: { id } }: ParamsInterface) {
   const [post, setPost] = useState<Post | null>(null);
   const [coverImage, setCoverImage] = useState<any>(null);
+  const [signedInUser, setSignedInUser] = useState(false);
 
   useEffect(() => {
+    getSignedInUser();
     fetchPost();
     async function fetchPost() {
       if (!id) return;
@@ -37,8 +41,20 @@ export default function Page({ params: { id } }: ParamsInterface) {
     }
   }
 
+  async function getSignedInUser() {
+    const isSignedIn = await authListener();
+    setSignedInUser(isSignedIn);
+  }
+
   return (
     <div className="container px-10 mx-auto">
+      {signedInUser &&
+        <BlogButton 
+          label="Edit Post"
+          type="primary"
+          onClickFn={() => {location.href = `/edit-post/${id}`}}
+        />
+      }
       <h1 className="text-5xl mt-4 font-semibold tracking-wide text-center">
         {post.title}
       </h1>
