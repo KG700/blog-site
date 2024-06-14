@@ -8,6 +8,7 @@ import "../styles.css";
 import { View, Heading, Button } from '@aws-amplify/ui-react';
 import { Amplify } from "aws-amplify";
 import config from '../../aws-exports'
+import BlogButton from '../components/blog-button';
 
 Amplify.configure({ ...config, ssr: true });
 
@@ -51,7 +52,11 @@ export default function Admin() {
             {({ signOut, user }) => (
                 <main>
                     <h1>Hello {user?.username}</h1>
-                    <button onClick={signOut}>Sign out</button>
+                    <BlogButton
+                        label="Sign out"
+                        type="primary"
+                        onClickFn={signOut}
+                    />
                 </main>
             )}
         </Authenticator>

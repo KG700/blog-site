@@ -11,6 +11,7 @@ import { updatePost } from "../../../graphql/mutations";
 import { getPost } from "../../../graphql/queries";
 import { Amplify } from "aws-amplify";
 import config from "../../../aws-exports";
+import BlogButton from "../../components/blog-button";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -92,6 +93,21 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   return (
     <div className="container px-10 mx-auto">
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Edit post</h1>
+      <BlogButton
+        label="Upload Image"
+        type="secondary"
+        onClickFn={uploadImage}
+      />
+      <BlogButton
+        label="Save"
+        type="secondary"
+        onClickFn={() => updateBlogPost(false)}
+      />
+      <BlogButton
+        label="Publish"
+        type="primary"
+        onClickFn={() => updateBlogPost(true)}
+      />
       <input
         onChange={onChange}
         name="author"
@@ -126,24 +142,6 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         className="absolute w-0 h-0"
         onChange={handleChange}
       />
-      <button
-        className="bg-purple-600 text-white font-semibold px-8 py-2 rounded-lg mr-2"
-        onClick={uploadImage}
-      >
-        Update Cover Image
-      </button>
-      <button
-        className="mb-4 bg-blue-600 text-white font-semibold px-8 py-2 rounded-lg mr-2"
-        onClick={() => updateBlogPost(false)}
-      >
-        Save
-      </button>
-      <button
-        className="mb-4 bg-blue-600 text-white font-semibold px-8 py-2 rounded-lg"
-        onClick={() => updateBlogPost(true)}
-      >
-        Publish
-      </button>
     </div>
   );
 }

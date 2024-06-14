@@ -20,6 +20,11 @@ const config: Config = {
     },
     colors: {
       "blog-blue": "#3F576F",
+      "light-blue": "#a5f3fc",
+      purple: "#8b5cf6",
+      green: "#10b981",
+      yellow: "#d9f99d",
+      red: "#e11d48",
       white: "#ffffff",
     },
   },
