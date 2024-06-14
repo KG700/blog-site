@@ -31,7 +31,18 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     async function fetchPost() {
       if (!id) return;
       const { data } = (await API.graphql({
-        query: getPost,
+        query: `
+          query GetPost($id: ID!) {
+            getPost(id: $id) {
+              title
+              content
+              coverImage
+              isPublished
+              author
+              id
+            }
+          }
+        `,
         variables: { id },
       })) as { data: GetPostQuery };
       if (data.getPost?.coverImage) {
@@ -45,7 +56,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   if (!post) return null;
 
   function onChange(e: any) {
-    setPost(() => ({ ...post, [e.target.name]: e.target.value } as Post));
+    setPost(() => ({ ...post, [e.target.name]: e.target.value } as UpdatePostInput));
   }
 
   async function uploadImage() {
@@ -65,23 +76,19 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
 
     if (coverImage && typeof coverImage !== "string") {
       const fileName = `${coverImage.name}_${uuid()}`;
-      (post as Post).coverImage = fileName;
+      if (post) post.coverImage = fileName;
       await Storage.put(fileName, coverImage);
     }
 
-    await API.graphql({
-      query: updatePost,
-      variables: {
-        input: {
-          id,
-          title,
-          content,
-          isPublished: isPublishing,
-          ...(coverImage && { coverImage: post?.coverImage }),
-        },
-      },
-      authMode: "AMAZON_COGNITO_USER_POOLS",
-    });
+    try {
+      await API.graphql({
+        query: updatePost,
+        variables: { input: post },
+        authMode: "AMAZON_COGNITO_USER_POOLS",
+      });
+    } catch (error) {
+      console.log({ error });
+    }
 
     if (isPublishing) {
       router.push(`/posts/${id}`);
