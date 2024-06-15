@@ -8,8 +8,9 @@ export const getPost = /* GraphQL */ `
       title
       content
       coverImage
-      isPublished
       author
+      isPublished
+      publishedAt
       id
       createdAt
       updatedAt
@@ -28,8 +29,9 @@ export const listPosts = /* GraphQL */ `
         title
         content
         coverImage
-        isPublished
         author
+        isPublished
+        publishedAt
         id
         createdAt
         updatedAt

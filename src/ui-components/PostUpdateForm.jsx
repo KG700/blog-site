@@ -34,16 +34,20 @@ export default function PostUpdateForm(props) {
     title: "",
     content: "",
     coverImage: "",
-    isPublished: false,
     author: "",
+    isPublished: false,
+    publishedAt: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [content, setContent] = React.useState(initialValues.content);
   const [coverImage, setCoverImage] = React.useState(initialValues.coverImage);
+  const [author, setAuthor] = React.useState(initialValues.author);
   const [isPublished, setIsPublished] = React.useState(
     initialValues.isPublished
   );
-  const [author, setAuthor] = React.useState(initialValues.author);
+  const [publishedAt, setPublishedAt] = React.useState(
+    initialValues.publishedAt
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = postRecord
@@ -52,8 +56,9 @@ export default function PostUpdateForm(props) {
     setTitle(cleanValues.title);
     setContent(cleanValues.content);
     setCoverImage(cleanValues.coverImage);
-    setIsPublished(cleanValues.isPublished);
     setAuthor(cleanValues.author);
+    setIsPublished(cleanValues.isPublished);
+    setPublishedAt(cleanValues.publishedAt);
     setErrors({});
   };
   const [postRecord, setPostRecord] = React.useState(postModelProp);
@@ -76,8 +81,9 @@ export default function PostUpdateForm(props) {
     title: [{ type: "Required" }],
     content: [{ type: "Required" }],
     coverImage: [],
-    isPublished: [],
     author: [],
+    isPublished: [],
+    publishedAt: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -108,8 +114,9 @@ export default function PostUpdateForm(props) {
           title,
           content,
           coverImage: coverImage ?? null,
-          isPublished: isPublished ?? null,
           author: author ?? null,
+          isPublished: isPublished ?? null,
+          publishedAt: publishedAt ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -173,8 +180,9 @@ export default function PostUpdateForm(props) {
               title: value,
               content,
               coverImage,
-              isPublished,
               author,
+              isPublished,
+              publishedAt,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -201,8 +209,9 @@ export default function PostUpdateForm(props) {
               title,
               content: value,
               coverImage,
-              isPublished,
               author,
+              isPublished,
+              publishedAt,
             };
             const result = onChange(modelFields);
             value = result?.content ?? value;
@@ -229,8 +238,9 @@ export default function PostUpdateForm(props) {
               title,
               content,
               coverImage: value,
-              isPublished,
               author,
+              isPublished,
+              publishedAt,
             };
             const result = onChange(modelFields);
             value = result?.coverImage ?? value;
@@ -245,6 +255,35 @@ export default function PostUpdateForm(props) {
         hasError={errors.coverImage?.hasError}
         {...getOverrideProps(overrides, "coverImage")}
       ></TextField>
+      <TextField
+        label="Author"
+        isRequired={false}
+        isReadOnly={false}
+        value={author}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              content,
+              coverImage,
+              author: value,
+              isPublished,
+              publishedAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.author ?? value;
+          }
+          if (errors.author?.hasError) {
+            runValidationTasks("author", value);
+          }
+          setAuthor(value);
+        }}
+        onBlur={() => runValidationTasks("author", author)}
+        errorMessage={errors.author?.errorMessage}
+        hasError={errors.author?.hasError}
+        {...getOverrideProps(overrides, "author")}
+      ></TextField>
       <SwitchField
         label="Is published"
         defaultChecked={false}
@@ -257,8 +296,9 @@ export default function PostUpdateForm(props) {
               title,
               content,
               coverImage,
-              isPublished: value,
               author,
+              isPublished: value,
+              publishedAt,
             };
             const result = onChange(modelFields);
             value = result?.isPublished ?? value;
@@ -274,10 +314,10 @@ export default function PostUpdateForm(props) {
         {...getOverrideProps(overrides, "isPublished")}
       ></SwitchField>
       <TextField
-        label="Author"
+        label="Published at"
         isRequired={false}
         isReadOnly={false}
-        value={author}
+        value={publishedAt}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -285,21 +325,22 @@ export default function PostUpdateForm(props) {
               title,
               content,
               coverImage,
+              author,
               isPublished,
-              author: value,
+              publishedAt: value,
             };
             const result = onChange(modelFields);
-            value = result?.author ?? value;
+            value = result?.publishedAt ?? value;
           }
-          if (errors.author?.hasError) {
-            runValidationTasks("author", value);
+          if (errors.publishedAt?.hasError) {
+            runValidationTasks("publishedAt", value);
           }
-          setAuthor(value);
+          setPublishedAt(value);
         }}
-        onBlur={() => runValidationTasks("author", author)}
-        errorMessage={errors.author?.errorMessage}
-        hasError={errors.author?.hasError}
-        {...getOverrideProps(overrides, "author")}
+        onBlur={() => runValidationTasks("publishedAt", publishedAt)}
+        errorMessage={errors.publishedAt?.errorMessage}
+        hasError={errors.publishedAt?.hasError}
+        {...getOverrideProps(overrides, "publishedAt")}
       ></TextField>
       <Flex
         justifyContent="space-between"

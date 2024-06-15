@@ -11,8 +11,9 @@ export const createPost = /* GraphQL */ `
       title
       content
       coverImage
-      isPublished
       author
+      isPublished
+      publishedAt
       id
       createdAt
       updatedAt
@@ -29,8 +30,9 @@ export const updatePost = /* GraphQL */ `
       title
       content
       coverImage
-      isPublished
       author
+      isPublished
+      publishedAt
       id
       createdAt
       updatedAt
@@ -47,8 +49,9 @@ export const deletePost = /* GraphQL */ `
       title
       content
       coverImage
-      isPublished
       author
+      isPublished
+      publishedAt
       id
       createdAt
       updatedAt

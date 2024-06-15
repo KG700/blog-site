@@ -8,8 +8,9 @@ export const onCreatePost = /* GraphQL */ `
       title
       content
       coverImage
-      isPublished
       author
+      isPublished
+      publishedAt
       id
       createdAt
       updatedAt
@@ -23,8 +24,9 @@ export const onUpdatePost = /* GraphQL */ `
       title
       content
       coverImage
-      isPublished
       author
+      isPublished
+      publishedAt
       id
       createdAt
       updatedAt
@@ -38,8 +40,9 @@ export const onDeletePost = /* GraphQL */ `
       title
       content
       coverImage
-      isPublished
       author
+      isPublished
+      publishedAt
       id
       createdAt
       updatedAt

@@ -11,8 +11,9 @@ type Post
   content: String!
   coverImage: String
   # comments: [Comment] @hasMany
-  isPublished: Boolean
   author: String
+  isPublished: Boolean
+  publishedAt: String
 }
 
 # type Comment

@@ -12,6 +12,7 @@ interface Props {
   content: string,
   coverImage: string | null,
   isPublished: boolean,
+  publishedAt?: string,
   signedInUser: boolean;
   deleteFn: (id: string) => {};
 }
@@ -23,6 +24,7 @@ export default function BlogTile({
   content,
   coverImage,
   isPublished,
+  publishedAt,
   signedInUser,
   deleteFn,
 }: Props) {
@@ -53,7 +55,8 @@ export default function BlogTile({
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{title}</div>
           <BlogDetails 
-            author={author} 
+            author={author}
+            publishedAt={publishedAt}
           />
           <p className="text-gray-700 text-base">{content}</p>
           <p>This post has been published: {isPublished?.toString()}</p>
