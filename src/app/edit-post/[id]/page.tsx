@@ -72,15 +72,18 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   const { title, content } = post;
 
   async function updateBlogPost(isPublishing: boolean = false) {
-    if (!title || !content) return;
-     
-    if(post && isPublishing) {
+    if (!title || !content || !post) return;
+    
+    post.isPublished = isPublishing;
+
+    if(isPublishing) {
       post.publishedAt = new Date().toISOString();
+      post.isPublished = isPublishing;
     }
 
     if (coverImage && typeof coverImage !== "string") {
       const fileName = `${coverImage.name}_${uuid()}`;
-      if (post) post.coverImage = fileName;
+      post.coverImage = fileName;
       await Storage.put(fileName, coverImage);
     }
 
