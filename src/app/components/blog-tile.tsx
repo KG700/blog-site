@@ -1,7 +1,7 @@
-import { Post } from "../../API";
 import { useEffect, useState } from "react";
 import { Storage } from "aws-amplify";
 import Link from "next/link";
+import Image from "next/image";
 import BlogDetails from "./blog-details";
 import BlogButton from "./blog-button";
 
@@ -46,10 +46,12 @@ export default function BlogTile({
     <div className="bg-white text-blog-blue max-w-lg rounded overflow-hidden shadow-lg mb-8 mx-auto">
       <Link href={`/posts/${id}`}>
         {coverImageUrl && (
-          <img
+          <Image
             className="object-cover h-60 w-full p-3"
             src={coverImageUrl}
             alt="Sunset in the mountains"
+            width={800}
+            height={800}
           />
         )}
         <div className="px-6 py-4">
