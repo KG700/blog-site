@@ -140,7 +140,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
               ? URL.createObjectURL(coverImage)
               : coverImage
           }
-          className="mt-4"
+          className="object-cover h-96 w-4/5 my-4 mx-auto"
         />
       )}
       <SimpleMDE
