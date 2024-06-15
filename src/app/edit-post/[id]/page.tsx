@@ -7,6 +7,7 @@ import { API, Storage } from "aws-amplify";
 import { v4 as uuid } from "uuid";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { updatePost } from "../../../graphql/mutations";
 import { getPost } from "../../../graphql/queries";
 import { Amplify } from "aws-amplify";
@@ -137,13 +138,16 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         className="border-b pb-2 text-2xl my-4 focus:outline-none w-full font-bold text-gray-500 placeholder-gray-500 y-2"
       />
       {coverImage && (
-        <img
+        <Image
           src={
             typeof coverImage !== "string"
               ? URL.createObjectURL(coverImage)
               : coverImage
           }
           className="object-cover h-96 w-4/5 my-4 mx-auto"
+          alt="blog image"
+          width={800}
+          height={800}
         />
       )}
       <SimpleMDE

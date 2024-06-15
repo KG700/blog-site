@@ -7,6 +7,7 @@ import { API, Storage } from "aws-amplify";
 import { v4 as uuid } from "uuid";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { createPost } from "../../graphql/mutations";
 import { Amplify } from "aws-amplify";
 import config from "../../aws-exports";
@@ -127,7 +128,14 @@ function CreatePost() {
         value={post.title}
         className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
       />
-      {image && <img src={URL.createObjectURL(image)} className="object-cover h-96 w-4/5 my-4 mx-auto" />}
+      {image && 
+        <Image
+          src={URL.createObjectURL(image)}
+          className="object-cover h-96 w-4/5 my-4 mx-auto"
+          alt="blog picture"
+          width={800}
+          height={800}
+        />}
       <SimpleMDE
         value={post.content}
         onChange={(value) => setPost({ ...post, content: value })}

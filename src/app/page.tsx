@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Storage, API } from "aws-amplify";
 import { Amplify } from "aws-amplify";
 import config from "../aws-exports";
+import Image from "next/image";
 import { listPosts } from "@/graphql/queries";
 import { deletePost } from "@/graphql/mutations";
 import { authListener } from "@/app/utils/authListener";
@@ -59,11 +60,13 @@ export default function Home() {
 
   return (
     <div>
-      <img
+      {coverImageUrl && <Image
         className="absolute -z-10 object-cover w-full h-96"
         src={coverImageUrl}
         alt="background image"
-      />
+        width={800}
+        height={800}
+      />}
       <div className="container px-10 mx-auto">
         <h1 className="text-3xl font-semibold tracking-wide mb-2 text-center">
           Blog Posts:

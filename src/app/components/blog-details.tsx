@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface Props {
   author: string
   publishedAt?: string
@@ -13,7 +15,13 @@ export default function BlogDetails({ author, publishedAt }: Props) {
   }
     return (
         <div className="m-8 flex items-center">
-        <img className="h-16 w-16 p-2 rounded-full inline-block content-center" src="../../../pexels-olly-3824771.jpg" alt="smiling man" />
+        <Image 
+          className="h-16 w-16 p-2 rounded-full inline-block content-center" 
+          src="/../../../pexels-olly-3824771.jpg" 
+          alt="smiling man"
+          width={800}
+          height={800}
+        />
         <div className="p-2 inline-block h-full">
           <h2 className="text-lg">By { author }</h2>
           {publishedAt &&
