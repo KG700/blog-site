@@ -55,6 +55,7 @@ function CreatePost() {
     const id = uuid();
     post.id = id;
     post.isPublished = true;
+    post.publishedAt = new Date().toISOString();
 
     if (image) {
       const fileName = `${image.name}_${uuid()}`;

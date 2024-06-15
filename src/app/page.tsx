@@ -77,6 +77,7 @@ export default function Home() {
               title={post?.title ?? ""}
               content={post?.content ?? ""}
               isPublished={post?.isPublished ?? false}
+              publishedAt={post?.publishedAt ?? undefined}
               coverImage={post?.coverImage ?? null}
               signedInUser={signedInUser}
               deleteFn={deleteBlogPost}

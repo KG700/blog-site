@@ -60,6 +60,7 @@ export default function Page({ params: { id } }: ParamsInterface) {
       </h1>
       <BlogDetails 
         author={post.author ?? ""}
+        publishedAt={post.publishedAt ?? undefined}
       />
       {coverImage && (
         <img

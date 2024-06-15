@@ -73,6 +73,10 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
 
   async function updateBlogPost(isPublishing: boolean = false) {
     if (!title || !content) return;
+     
+    if(post && isPublishing) {
+      post.publishedAt = new Date().toISOString();
+    }
 
     if (coverImage && typeof coverImage !== "string") {
       const fileName = `${coverImage.name}_${uuid()}`;
