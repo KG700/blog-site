@@ -12,6 +12,7 @@ import { createPost } from "../../graphql/mutations";
 import { Amplify } from "aws-amplify";
 import config from "../../aws-exports";
 import BlogButton from "../components/blog-button";
+import BlogInput from "../components/blog-input";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -114,19 +115,20 @@ function CreatePost() {
         type="primary"
         onClickFn={publishPost}
       />
-      <input
-        onChange={onChange}
+      <BlogInput
         name="author"
-        placeholder="Author's name"
+        label="Author"
         value={post.author ?? ""}
-        className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
-      />
-      <input
+        placeholder="Enter name of author"
         onChange={onChange}
+      />
+      <BlogInput
         name="title"
-        placeholder="Title"
-        value={post.title}
-        className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
+        label="Title"
+        value={post.title ?? ""}
+        placeholder="Enter blog title"
+        isboldFont={true}
+        onChange={onChange}
       />
       {image &&
         <Image
