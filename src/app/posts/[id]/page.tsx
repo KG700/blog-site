@@ -49,7 +49,7 @@ export default function Page({ params: { id } }: ParamsInterface) {
   return (
     <div className="container px-10 mx-auto">
       {signedInUser &&
-        <BlogButton 
+        <BlogButton
           label="Edit Post"
           type="primary"
           onClickFn={() => {location.href = `/edit-post/${id}`}}
@@ -58,7 +58,7 @@ export default function Page({ params: { id } }: ParamsInterface) {
       <h1 className="text-5xl mt-4 font-semibold tracking-wide text-center">
         {post.title}
       </h1>
-      <BlogDetails 
+      <BlogDetails
         author={post.author ?? ""}
         publishedAt={post.publishedAt ?? undefined}
       />

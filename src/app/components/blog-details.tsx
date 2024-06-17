@@ -15,9 +15,9 @@ export default function BlogDetails({ author, publishedAt }: Props) {
   }
     return (
         <div className="m-8 flex items-center">
-        <Image 
-          className="h-16 w-16 p-2 rounded-full inline-block content-center" 
-          src="/../../../pexels-olly-3824771.jpg" 
+        <Image
+          className="h-16 w-16 p-2 rounded-full inline-block content-center"
+          src="/../../../pexels-olly-3824771.jpg"
           alt="smiling man"
           width={800}
           height={800}

@@ -18,7 +18,7 @@ export default function BlogButton({ label, type, onClickFn }: Props) {
             className = `${className} bg-gradient-to-br from-light-blue to-red`
             break;
     }
-    
+
     return (
     <button
         className={className}
@@ -27,5 +27,5 @@ export default function BlogButton({ label, type, onClickFn }: Props) {
         { label }
       </button>
     )
-    
+
 }
