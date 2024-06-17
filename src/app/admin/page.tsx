@@ -18,7 +18,7 @@ export default function Admin() {
     //     SignUp: {
     //         Header() {
     //             const { tokens } = useTheme();
-          
+
     //             return (
     //               <Heading
     //                 padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
@@ -30,7 +30,7 @@ export default function Admin() {
     //           },
     //           Footer() {
     //             const { toSignIn } = useAuthenticator();
-          
+
     //             return (
     //               <View textAlign="center">
     //                 <Button

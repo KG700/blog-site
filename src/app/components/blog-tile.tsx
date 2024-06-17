@@ -56,17 +56,17 @@ export default function BlogTile({
         )}
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{title}</div>
-          <BlogDetails 
+          <BlogDetails
             author={author}
             publishedAt={publishedAt}
           />
           <p className="text-gray-700 text-base">{content}</p>
           <p>This post has been published: {isPublished?.toString()}</p>
         </div>
-        
+
       </Link>
       {signedInUser && (
-        <BlogButton 
+        <BlogButton
           label="Edit Post"
           type="secondary"
           onClickFn={() => {location.href = `/edit-post/${id}`}}

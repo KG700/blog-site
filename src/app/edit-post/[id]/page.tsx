@@ -74,7 +74,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
 
   async function updateBlogPost(isPublishing: boolean = false) {
     if (!title || !content || !post) return;
-    
+
     post.isPublished = isPublishing;
 
     if(isPublishing) {
