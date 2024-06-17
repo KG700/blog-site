@@ -13,6 +13,7 @@ import { getPost } from "../../../graphql/queries";
 import { Amplify } from "aws-amplify";
 import config from "../../../aws-exports";
 import BlogButton from "../../components/blog-button";
+import BlogInput from "../../components/blog-input";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -123,19 +124,20 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         type="primary"
         onClickFn={() => updateBlogPost(true)}
       />
-      <input
-        onChange={onChange}
+      <BlogInput
         name="author"
-        placeholder="Author's name"
+        label="Author"
         value={post.author ?? ""}
-        className="border-b pb-2 text-2xl my-4 focus:outline-none w-full font-bold text-gray-500 placeholder-gray-500 y-2"
-      />
-      <input
+        placeholder="Enter name of author"
         onChange={onChange}
+      />
+      <BlogInput
         name="title"
-        placeholder="Title"
+        label="Title"
         value={post.title ?? ""}
-        className="border-b pb-2 text-2xl my-4 focus:outline-none w-full font-bold text-gray-500 placeholder-gray-500 y-2"
+        placeholder="Enter blog title"
+        isboldFont={true}
+        onChange={onChange}
       />
       {coverImage && (
         <Image
