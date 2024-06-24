@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 interface Props {
-    readonly value?: string
+    value?: string
     onChange: any
 }
 
-export default function BlogSummary({ onChange, value }: Props) {
+export default function BlogSummary({ onChange, value }: Readonly<Props>) {
   const [count, setCount] = useState(0);
 
     return (
