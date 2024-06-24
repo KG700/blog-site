@@ -13,6 +13,7 @@ import { Amplify } from "aws-amplify";
 import config from "../../aws-exports";
 import BlogButton from "../components/blog-button";
 import BlogInput from "../components/blog-input";
+import BlogSummary from "../components/blog-summary";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -130,15 +131,9 @@ function CreatePost() {
         isboldFont={true}
         onChange={onChange}
       />
-      <label className="block my-4">
-        <span className="text-sm font-normal">Summary</span>
-        <textarea
-          className="border-b pb-2 text-l focus:outline-none w-full text-gray-500 placeholder:text-gray-500 placeholder:font-normal placeholder:text-base y-2"
-          placeholder="Enter a blog summary"
-          name="summary"
-          onChange={onChange}
-        />
-      </label>
+      <BlogSummary
+         onChange={onChange}
+      />
       {image &&
         <Image
           src={URL.createObjectURL(image)}
