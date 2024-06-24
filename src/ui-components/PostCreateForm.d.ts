@@ -23,6 +23,7 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type PostCreateFormInputValues = {
     title?: string;
+    summary?: string;
     content?: string;
     coverImage?: string;
     author?: string;
@@ -31,6 +32,7 @@ export declare type PostCreateFormInputValues = {
 };
 export declare type PostCreateFormValidationValues = {
     title?: ValidationFunction<string>;
+    summary?: ValidationFunction<string>;
     content?: ValidationFunction<string>;
     coverImage?: ValidationFunction<string>;
     author?: ValidationFunction<string>;
@@ -41,6 +43,7 @@ export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes
 export declare type PostCreateFormOverridesProps = {
     PostCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     title?: PrimitiveOverrideProps<TextFieldProps>;
+    summary?: PrimitiveOverrideProps<TextFieldProps>;
     content?: PrimitiveOverrideProps<TextFieldProps>;
     coverImage?: PrimitiveOverrideProps<TextFieldProps>;
     author?: PrimitiveOverrideProps<TextFieldProps>;

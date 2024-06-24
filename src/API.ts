@@ -4,6 +4,7 @@
 
 export type CreatePostInput = {
   title: string,
+  summary?: string | null,
   content: string,
   coverImage?: string | null,
   author?: string | null,
@@ -14,6 +15,7 @@ export type CreatePostInput = {
 
 export type ModelPostConditionInput = {
   title?: ModelStringInput | null,
+  summary?: ModelStringInput | null,
   content?: ModelStringInput | null,
   coverImage?: ModelStringInput | null,
   author?: ModelStringInput | null,
@@ -74,6 +76,7 @@ export type ModelBooleanInput = {
 export type Post = {
   __typename: "Post",
   title: string,
+  summary?: string | null,
   content: string,
   coverImage?: string | null,
   author?: string | null,
@@ -86,6 +89,7 @@ export type Post = {
 
 export type UpdatePostInput = {
   title?: string | null,
+  summary?: string | null,
   content?: string | null,
   coverImage?: string | null,
   author?: string | null,
@@ -100,6 +104,7 @@ export type DeletePostInput = {
 
 export type ModelPostFilterInput = {
   title?: ModelStringInput | null,
+  summary?: ModelStringInput | null,
   content?: ModelStringInput | null,
   coverImage?: ModelStringInput | null,
   author?: ModelStringInput | null,
@@ -118,6 +123,7 @@ export type ModelPostConnection = {
 
 export type ModelSubscriptionPostFilterInput = {
   title?: ModelSubscriptionStringInput | null,
+  summary?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
   coverImage?: ModelSubscriptionStringInput | null,
   author?: ModelSubscriptionStringInput | null,
@@ -156,6 +162,7 @@ export type CreatePostMutation = {
   createPost?:  {
     __typename: "Post",
     title: string,
+    summary?: string | null,
     content: string,
     coverImage?: string | null,
     author?: string | null,
@@ -176,6 +183,7 @@ export type UpdatePostMutation = {
   updatePost?:  {
     __typename: "Post",
     title: string,
+    summary?: string | null,
     content: string,
     coverImage?: string | null,
     author?: string | null,
@@ -196,6 +204,7 @@ export type DeletePostMutation = {
   deletePost?:  {
     __typename: "Post",
     title: string,
+    summary?: string | null,
     content: string,
     coverImage?: string | null,
     author?: string | null,
@@ -215,6 +224,7 @@ export type GetPostQuery = {
   getPost?:  {
     __typename: "Post",
     title: string,
+    summary?: string | null,
     content: string,
     coverImage?: string | null,
     author?: string | null,
@@ -238,6 +248,7 @@ export type ListPostsQuery = {
     items:  Array< {
       __typename: "Post",
       title: string,
+      summary?: string | null,
       content: string,
       coverImage?: string | null,
       author?: string | null,
@@ -259,6 +270,7 @@ export type OnCreatePostSubscription = {
   onCreatePost?:  {
     __typename: "Post",
     title: string,
+    summary?: string | null,
     content: string,
     coverImage?: string | null,
     author?: string | null,
@@ -278,6 +290,7 @@ export type OnUpdatePostSubscription = {
   onUpdatePost?:  {
     __typename: "Post",
     title: string,
+    summary?: string | null,
     content: string,
     coverImage?: string | null,
     author?: string | null,
@@ -297,6 +310,7 @@ export type OnDeletePostSubscription = {
   onDeletePost?:  {
     __typename: "Post",
     title: string,
+    summary?: string | null,
     content: string,
     coverImage?: string | null,
     author?: string | null,
