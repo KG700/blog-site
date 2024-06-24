@@ -59,7 +59,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   if (!post) return null;
 
   function onChange(e: any) {
-    setPost(() => ({ ...post, [e.target.name]: e.target.value } as UpdatePostInput));
+    setPost(() => ({ ...post, [e?.target.name]: e?.target.value } as UpdatePostInput));
   }
 
   async function uploadImage() {

@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 interface Props {
     onChange: any
 }
 
 export default function blogSummary({ onChange }: Props) {
+  const [count, setCount] = useState(0);
+
     return (
         <label className="block my-4">
         <span className="text-sm font-normal">Summary</span>
@@ -10,8 +14,14 @@ export default function blogSummary({ onChange }: Props) {
           className="border-b pb-2 text-l focus:outline-none w-full text-gray-500 placeholder:text-gray-500 placeholder:font-normal placeholder:text-base y-2"
           placeholder="Enter a blog summary"
           name="summary"
-          onChange={onChange}
+          maxLength={1000}
+          rows={6}
+          onChange={(e) => {
+            onChange(e);
+            setCount(e?.target.value.length ?? 0);
+          }}
         />
+        <p className="float-right">{count}/1000</p>
       </label>
     )
 }
