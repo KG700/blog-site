@@ -13,6 +13,7 @@ import { Amplify } from "aws-amplify";
 import config from "../../aws-exports";
 import BlogButton from "../components/blog-button";
 import BlogInput from "../components/blog-input";
+import BlogSummary from "../components/blog-summary";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -129,6 +130,9 @@ function CreatePost() {
         placeholder="Enter blog title"
         isboldFont={true}
         onChange={onChange}
+      />
+      <BlogSummary
+         onChange={onChange}
       />
       {image &&
         <Image

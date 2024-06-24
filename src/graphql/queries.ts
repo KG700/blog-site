@@ -6,6 +6,7 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       title
+      summary
       content
       coverImage
       author
@@ -27,6 +28,7 @@ export const listPosts = /* GraphQL */ `
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         title
+        summary
         content
         coverImage
         author

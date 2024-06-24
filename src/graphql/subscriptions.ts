@@ -6,6 +6,7 @@ export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
     onCreatePost(filter: $filter) {
       title
+      summary
       content
       coverImage
       author
@@ -22,6 +23,7 @@ export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
     onUpdatePost(filter: $filter) {
       title
+      summary
       content
       coverImage
       author
@@ -38,6 +40,7 @@ export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
     onDeletePost(filter: $filter) {
       title
+      summary
       content
       coverImage
       author

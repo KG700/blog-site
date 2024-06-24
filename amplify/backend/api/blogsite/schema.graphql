@@ -8,6 +8,7 @@ type Post
   @auth(rules: [{ allow: private }, { allow: public, operations: [read] }]) {
   # id: ID! @index(name: "postsByUsername", sortKeyFields: ["username"])
   title: String!
+  summary: String
   content: String!
   coverImage: String
   # comments: [Comment] @hasMany

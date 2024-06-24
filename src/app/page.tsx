@@ -78,7 +78,7 @@ export default function Home() {
               id={post?.id ?? ""}
               author={post?.author ?? ""}
               title={post?.title ?? ""}
-              content={post?.content ?? ""}
+              summary={post?.summary ?? ""}
               isPublished={post?.isPublished ?? false}
               publishedAt={post?.publishedAt ?? undefined}
               coverImage={post?.coverImage ?? null}

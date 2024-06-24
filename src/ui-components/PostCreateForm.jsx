@@ -30,6 +30,7 @@ export default function PostCreateForm(props) {
   } = props;
   const initialValues = {
     title: "",
+    summary: "",
     content: "",
     coverImage: "",
     author: "",
@@ -37,6 +38,7 @@ export default function PostCreateForm(props) {
     publishedAt: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
+  const [summary, setSummary] = React.useState(initialValues.summary);
   const [content, setContent] = React.useState(initialValues.content);
   const [coverImage, setCoverImage] = React.useState(initialValues.coverImage);
   const [author, setAuthor] = React.useState(initialValues.author);
@@ -49,6 +51,7 @@ export default function PostCreateForm(props) {
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setTitle(initialValues.title);
+    setSummary(initialValues.summary);
     setContent(initialValues.content);
     setCoverImage(initialValues.coverImage);
     setAuthor(initialValues.author);
@@ -58,6 +61,7 @@ export default function PostCreateForm(props) {
   };
   const validations = {
     title: [{ type: "Required" }],
+    summary: [],
     content: [{ type: "Required" }],
     coverImage: [],
     author: [],
@@ -91,6 +95,7 @@ export default function PostCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           title,
+          summary,
           content,
           coverImage,
           author,
@@ -159,6 +164,7 @@ export default function PostCreateForm(props) {
           if (onChange) {
             const modelFields = {
               title: value,
+              summary,
               content,
               coverImage,
               author,
@@ -179,6 +185,36 @@ export default function PostCreateForm(props) {
         {...getOverrideProps(overrides, "title")}
       ></TextField>
       <TextField
+        label="Summary"
+        isRequired={false}
+        isReadOnly={false}
+        value={summary}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              summary: value,
+              content,
+              coverImage,
+              author,
+              isPublished,
+              publishedAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.summary ?? value;
+          }
+          if (errors.summary?.hasError) {
+            runValidationTasks("summary", value);
+          }
+          setSummary(value);
+        }}
+        onBlur={() => runValidationTasks("summary", summary)}
+        errorMessage={errors.summary?.errorMessage}
+        hasError={errors.summary?.hasError}
+        {...getOverrideProps(overrides, "summary")}
+      ></TextField>
+      <TextField
         label="Content"
         isRequired={true}
         isReadOnly={false}
@@ -188,6 +224,7 @@ export default function PostCreateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content: value,
               coverImage,
               author,
@@ -217,6 +254,7 @@ export default function PostCreateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content,
               coverImage: value,
               author,
@@ -246,6 +284,7 @@ export default function PostCreateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content,
               coverImage,
               author: value,
@@ -275,6 +314,7 @@ export default function PostCreateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content,
               coverImage,
               author,
@@ -304,6 +344,7 @@ export default function PostCreateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content,
               coverImage,
               author,

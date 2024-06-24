@@ -58,10 +58,13 @@ export default function Page({ params: { id } }: ParamsInterface) {
       <h1 className="text-5xl mt-4 font-semibold tracking-wide text-center">
         {post.title}
       </h1>
-      <BlogDetails
-        author={post.author ?? ""}
-        publishedAt={post.publishedAt ?? undefined}
-      />
+      <div className="container w-4/5">
+        <BlogDetails
+          author={post.author ?? ""}
+          publishedAt={post.publishedAt ?? undefined}
+        />
+      </div>
+      <p className="container text-xl mt-8 w-4/5 p-4 font-semibold">{post.summary ?? ""}</p>
       {coverImage && (
         <img
           src={coverImage}

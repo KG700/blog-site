@@ -32,6 +32,7 @@ export default function PostUpdateForm(props) {
   } = props;
   const initialValues = {
     title: "",
+    summary: "",
     content: "",
     coverImage: "",
     author: "",
@@ -39,6 +40,7 @@ export default function PostUpdateForm(props) {
     publishedAt: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
+  const [summary, setSummary] = React.useState(initialValues.summary);
   const [content, setContent] = React.useState(initialValues.content);
   const [coverImage, setCoverImage] = React.useState(initialValues.coverImage);
   const [author, setAuthor] = React.useState(initialValues.author);
@@ -54,6 +56,7 @@ export default function PostUpdateForm(props) {
       ? { ...initialValues, ...postRecord }
       : initialValues;
     setTitle(cleanValues.title);
+    setSummary(cleanValues.summary);
     setContent(cleanValues.content);
     setCoverImage(cleanValues.coverImage);
     setAuthor(cleanValues.author);
@@ -79,6 +82,7 @@ export default function PostUpdateForm(props) {
   React.useEffect(resetStateValues, [postRecord]);
   const validations = {
     title: [{ type: "Required" }],
+    summary: [],
     content: [{ type: "Required" }],
     coverImage: [],
     author: [],
@@ -112,6 +116,7 @@ export default function PostUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           title,
+          summary: summary ?? null,
           content,
           coverImage: coverImage ?? null,
           author: author ?? null,
@@ -178,6 +183,7 @@ export default function PostUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               title: value,
+              summary,
               content,
               coverImage,
               author,
@@ -198,6 +204,36 @@ export default function PostUpdateForm(props) {
         {...getOverrideProps(overrides, "title")}
       ></TextField>
       <TextField
+        label="Summary"
+        isRequired={false}
+        isReadOnly={false}
+        value={summary}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              summary: value,
+              content,
+              coverImage,
+              author,
+              isPublished,
+              publishedAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.summary ?? value;
+          }
+          if (errors.summary?.hasError) {
+            runValidationTasks("summary", value);
+          }
+          setSummary(value);
+        }}
+        onBlur={() => runValidationTasks("summary", summary)}
+        errorMessage={errors.summary?.errorMessage}
+        hasError={errors.summary?.hasError}
+        {...getOverrideProps(overrides, "summary")}
+      ></TextField>
+      <TextField
         label="Content"
         isRequired={true}
         isReadOnly={false}
@@ -207,6 +243,7 @@ export default function PostUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content: value,
               coverImage,
               author,
@@ -236,6 +273,7 @@ export default function PostUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content,
               coverImage: value,
               author,
@@ -265,6 +303,7 @@ export default function PostUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content,
               coverImage,
               author: value,
@@ -294,6 +333,7 @@ export default function PostUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content,
               coverImage,
               author,
@@ -323,6 +363,7 @@ export default function PostUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               title,
+              summary,
               content,
               coverImage,
               author,

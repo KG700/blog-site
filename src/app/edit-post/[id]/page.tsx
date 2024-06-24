@@ -12,8 +12,9 @@ import { updatePost } from "../../../graphql/mutations";
 import { getPost } from "../../../graphql/queries";
 import { Amplify } from "aws-amplify";
 import config from "../../../aws-exports";
-import BlogButton from "../../components/blog-button";
-import BlogInput from "../../components/blog-input";
+import BlogButton from "@/app/components/blog-button";
+import BlogInput from "@/app/components/blog-input";
+import BlogSummary from "@/app/components/blog-summary";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -37,6 +38,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
           query GetPost($id: ID!) {
             getPost(id: $id) {
               title
+              summary
               content
               coverImage
               isPublished
@@ -58,7 +60,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   if (!post) return null;
 
   function onChange(e: any) {
-    setPost(() => ({ ...post, [e.target.name]: e.target.value } as UpdatePostInput));
+    setPost(() => ({ ...post, [e?.target.name]: e?.target.value } as UpdatePostInput));
   }
 
   async function uploadImage() {
@@ -137,6 +139,10 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         value={post.title ?? ""}
         placeholder="Enter blog title"
         isboldFont={true}
+        onChange={onChange}
+      />
+      <BlogSummary
+        value={post.summary ?? ""}
         onChange={onChange}
       />
       {coverImage && (

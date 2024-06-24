@@ -50,7 +50,7 @@ function DraftPosts() {
             id={post?.id ?? ""}
             author={post?.author ?? ""}
             title={post?.title ?? ""}
-            content={post?.content ?? ""}
+            summary={post?.summary ?? ""}
             isPublished={post?.isPublished ?? false}
             coverImage={post?.coverImage ?? null}
             signedInUser={true}
