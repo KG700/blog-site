@@ -5,7 +5,7 @@ interface Props {
     onChange: any
 }
 
-export default function blogSummary({ onChange, value }: Props) {
+export default function BlogSummary({ onChange, value }: Readonly<Props>) {
   const [count, setCount] = useState(0);
 
     return (
