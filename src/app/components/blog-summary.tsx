@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface Props {
-    value?: string
+    readonly value?: string
     onChange: any
 }
 
