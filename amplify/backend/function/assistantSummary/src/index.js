@@ -10,7 +10,7 @@ export const handler = async (event) => {
         contentType: "application/json",
         accept: "*/*",
         body: JSON.stringify({
-          inputText: `Write a summary that's no longer than 1000 characters of: ${event.arguments.summary}. Make it interest someone into reading the full text.`,
+          inputText: `Write a summary of: ${event.arguments.summary}. Make it interest someone into reading the full text. It should be shorter than 500 characters`,
           textGenerationConfig: {
               maxTokenCount: 8192,
               stopSequences: [],
