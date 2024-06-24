@@ -38,6 +38,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
           query GetPost($id: ID!) {
             getPost(id: $id) {
               title
+              summary
               content
               coverImage
               isPublished
@@ -141,6 +142,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         onChange={onChange}
       />
       <BlogSummary
+        value={post.summary ?? ""}
         onChange={onChange}
       />
       {coverImage && (
