@@ -9,7 +9,7 @@ interface Props {
   id: string,
   author: string,
   title: string,
-  content: string,
+  summary: string,
   coverImage: string | null,
   isPublished: boolean,
   publishedAt?: string,
@@ -21,7 +21,7 @@ export default function BlogTile({
   id,
   author,
   title,
-  content,
+  summary,
   coverImage,
   isPublished,
   publishedAt,
@@ -60,8 +60,7 @@ export default function BlogTile({
             author={author}
             publishedAt={publishedAt}
           />
-          <p className="text-gray-700 text-base">{content}</p>
-          <p>This post has been published: {isPublished?.toString()}</p>
+          <p className="text-gray-700 text-base">{summary}</p>
         </div>
 
       </Link>
