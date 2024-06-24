@@ -3,6 +3,11 @@
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
 } # FOR TESTING ONLY!
+
+type Query {
+  assistWithSummary(summary: String): String
+}
+
 type Post
   @model
   @auth(rules: [{ allow: private }, { allow: public, operations: [read] }]) {
