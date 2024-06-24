@@ -12,8 +12,9 @@ import { updatePost } from "../../../graphql/mutations";
 import { getPost } from "../../../graphql/queries";
 import { Amplify } from "aws-amplify";
 import config from "../../../aws-exports";
-import BlogButton from "../../components/blog-button";
-import BlogInput from "../../components/blog-input";
+import BlogButton from "@/app/components/blog-button";
+import BlogInput from "@/app/components/blog-input";
+import BlogSummary from "@/app/components/blog-summary";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -137,6 +138,9 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         value={post.title ?? ""}
         placeholder="Enter blog title"
         isboldFont={true}
+        onChange={onChange}
+      />
+      <BlogSummary
         onChange={onChange}
       />
       {coverImage && (
