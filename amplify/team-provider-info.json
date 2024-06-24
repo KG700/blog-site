@@ -24,7 +24,7 @@
       "function": {
         "assistantSummary": {
           "deploymentBucketName": "amplify-blogsite-dev-202619-deployment",
-          "s3Key": "amplify-builds/assistantSummary-714b6b54752b6d307458-build.zip"
+          "s3Key": "amplify-builds/assistantSummary-394a716b414178717362-build.zip"
         }
       }
     }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.2.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.602.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "20.5.7",
     "@types/react": "18.2.21",
