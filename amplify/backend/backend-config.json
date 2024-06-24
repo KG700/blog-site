@@ -60,6 +60,31 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "assistantSummary": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_assistantSummary_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "assistantSummary"
+        }
+      ]
+    },
+    "AMPLIFY_function_assistantSummary_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "assistantSummary"
+        }
+      ]
+    }
+  },
   "storage": {
     "blogImages": {
       "dependsOn": [],

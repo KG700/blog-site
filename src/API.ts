@@ -216,6 +216,14 @@ export type DeletePostMutation = {
   } | null,
 };
 
+export type AssistWithSummaryQueryVariables = {
+  summary?: string | null,
+};
+
+export type AssistWithSummaryQuery = {
+  assistWithSummary?: string | null,
+};
+
 export type GetPostQueryVariables = {
   id: string,
 };

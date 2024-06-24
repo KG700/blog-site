@@ -20,6 +20,12 @@
       },
       "storage": {
         "blogImages": {}
+      },
+      "function": {
+        "assistantSummary": {
+          "deploymentBucketName": "amplify-blogsite-dev-202619-deployment",
+          "s3Key": "amplify-builds/assistantSummary-2f415161562b6763507a-build.zip"
+        }
       }
     }
   }

@@ -15,6 +15,7 @@ import config from "../../../aws-exports";
 import BlogButton from "@/app/components/blog-button";
 import BlogInput from "@/app/components/blog-input";
 import BlogSummary from "@/app/components/blog-summary";
+import { assistWithSummary } from "../../../graphql/queries";
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -26,6 +27,7 @@ Amplify.configure({ ...config, ssr: true });
 function EditPost({ params: { id } }: { params: { id: string } }) {
   const [post, setPost] = useState<UpdatePostInput | null>(null);
   const [coverImage, setCoverImage] = useState<any>(null);
+  const [assistantSummary, setAssistantSummary] = useState("");
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -108,6 +110,15 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     }
   }
 
+  async function getAssistantSummary() {
+    const output = await API.graphql({
+      query: assistWithSummary,
+      variables: { summary: post?.content ?? "" },
+    }) as { data: { assistWithSummary: string }};
+    console.log({ item: output?.data.assistWithSummary })
+    setAssistantSummary(output?.data.assistWithSummary);
+  }
+
   return (
     <div className="container px-10 mx-auto">
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Edit post</h1>
@@ -126,6 +137,12 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         type="primary"
         onClickFn={() => updateBlogPost(true)}
       />
+      <BlogButton
+        label="Assistant Summary"
+        type="secondary"
+        onClickFn={getAssistantSummary}
+      />
+      <p>{assistantSummary}</p>
       <BlogInput
         name="author"
         label="Author"
