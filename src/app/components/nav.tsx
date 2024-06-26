@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Auth, Hub } from "aws-amplify";
+import { Hub } from "aws-amplify/utils";
+import { fetchAuthSession } from "aws-amplify/auth"
 import { usePathname } from "next/navigation";
 
 export default function Nav() {
@@ -16,14 +17,14 @@ export default function Nav() {
   async function authListener() {
     Hub.listen("auth", (data) => {
       switch (data.payload.event) {
-        case "signIn":
+        case "signedIn":
           return setSignedInUser(true);
-        case "signOut":
+        case "signedOut":
           return setSignedInUser(false);
       }
     });
     try {
-      await Auth.currentAuthenticatedUser();
+      await fetchAuthSession();
       setSignedInUser(true);
     } catch (error) {}
   }
