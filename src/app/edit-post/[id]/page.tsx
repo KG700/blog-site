@@ -3,7 +3,9 @@
 import type { Post, UpdatePostInput, GetPostQuery } from "../../../API";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useEffect, useState, useRef } from "react";
-import { API, Storage } from "aws-amplify";
+import { uploadData } from "aws-amplify/storage";
+import { getUrl } from "aws-amplify/storage/server";
+import { generateClient } from "aws-amplify/api";
 import { v4 as uuid } from "uuid";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -16,18 +18,21 @@ import BlogButton from "@/app/components/blog-button";
 import BlogInput from "@/app/components/blog-input";
 import BlogSummary from "@/app/components/blog-summary";
 import { assistWithSummary } from "../../../graphql/queries";
+import { runWithAmplifyServerContext } from '@/app/utils/amplifyServerUtils';
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
 
-Amplify.configure({ ...config, ssr: true });
+Amplify.configure(config, { ssr: true });
+const client = generateClient();
 
 function EditPost({ params: { id } }: { params: { id: string } }) {
   const [post, setPost] = useState<UpdatePostInput | null>(null);
-  const [coverImage, setCoverImage] = useState<any>(null);
+  const [coverImageUrl, setCoverImageUrl] = useState<any>(null);
   const [assistantSummary, setAssistantSummary] = useState("");
+  const [newImage, setNewImage] = useState<any>(null);
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -35,7 +40,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     fetchPost();
     async function fetchPost() {
       if (!id) return;
-      const { data } = (await API.graphql({
+      const { data } = (await client.graphql({
         query: `
           query GetPost($id: ID!) {
             getPost(id: $id) {
@@ -51,11 +56,17 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         `,
         variables: { id },
       })) as { data: GetPostQuery };
-      if (data.getPost?.coverImage) {
-        const imageKey = await Storage.get(data.getPost.coverImage);
-        setCoverImage(imageKey);
-      }
       setPost(data.getPost ?? null);
+      if (data.getPost?.coverImage) {
+        const imageUrl = await runWithAmplifyServerContext({
+          nextServerContext: null,
+          operation: (contextSpec: any) =>
+            getUrl(contextSpec, {
+              key: data?.getPost?.coverImage ?? ""
+            })
+        })
+        setCoverImageUrl(imageUrl.url.toString());
+      }
     }
   }, [id, post?.coverImage]);
 
@@ -69,35 +80,38 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     hiddenFileInput.current && hiddenFileInput.current.click();
   }
 
-  function handleChange(e: any) {
+  async function handleChange(e: any) {
     const fileUploaded = e.target.files[0];
     if (!fileUploaded) return;
-    setCoverImage(fileUploaded);
+    setNewImage(fileUploaded);
   }
 
-  const { title, content } = post;
+  const { title, content } = post ?? {};
 
   async function updateBlogPost(isPublishing: boolean = false) {
     if (!title || !content || !post) return;
 
     post.isPublished = isPublishing;
+    if(isPublishing) post.publishedAt = new Date().toISOString();
 
-    if(isPublishing) {
-      post.publishedAt = new Date().toISOString();
-      post.isPublished = isPublishing;
-    }
-
-    if (coverImage && typeof coverImage !== "string") {
-      const fileName = `${coverImage.name}_${uuid()}`;
+    if (newImage) {
+      const fileName = `public/${newImage.name}_${uuid()}`;
       post.coverImage = fileName;
-      await Storage.put(fileName, coverImage);
+      try {
+        await uploadData({
+          key: fileName,
+          data: newImage
+        });
+      } catch (error) {
+        console.log({ error });
+      }
     }
 
     try {
-      await API.graphql({
+      await client.graphql({
         query: updatePost,
         variables: { input: post },
-        authMode: "AMAZON_COGNITO_USER_POOLS",
+        authMode: 'userPool',
       });
     } catch (error) {
       console.log({ error });
@@ -111,11 +125,10 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   }
 
   async function getAssistantSummary() {
-    const output = await API.graphql({
+    const output = await client.graphql({
       query: assistWithSummary,
       variables: { summary: post?.content ?? "" },
     }) as { data: { assistWithSummary: string }};
-    console.log({ item: output?.data.assistWithSummary })
     setAssistantSummary(output?.data.assistWithSummary);
   }
 
@@ -162,12 +175,12 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         value={post.summary ?? ""}
         onChange={onChange}
       />
-      {coverImage && (
+      {(coverImageUrl || newImage) && (
         <Image
           src={
-            typeof coverImage !== "string"
-              ? URL.createObjectURL(coverImage)
-              : coverImage
+            newImage
+              ? URL.createObjectURL(newImage)
+              : coverImageUrl
           }
           className="object-cover h-96 w-4/5 my-4 mx-auto"
           alt="blog image"

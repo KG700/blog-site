@@ -1,16 +1,18 @@
-import { Auth, Hub } from 'aws-amplify';
+import { Hub } from 'aws-amplify/utils';
+import { fetchAuthSession } from "aws-amplify/auth"
+
 
 export async function authListener() {
     Hub.listen('auth', (data) => {
         switch (data.payload.event) {
-            case 'signIn':
+            case 'signedIn':
                 return true
-            case 'signOut':
+            case 'signedOut':
                 return false
         }
     })
     try {
-        await Auth.currentAuthenticatedUser()
+        await fetchAuthSession()
         return true
     } catch (error) {
         return false
