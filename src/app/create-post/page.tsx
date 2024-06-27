@@ -3,7 +3,8 @@
 import type { CreatePostInput } from "../../API";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useState, useRef } from "react";
-import { API, Storage } from "aws-amplify";
+import { uploadData } from "aws-amplify/storage";
+import { generateClient } from "aws-amplify/api";
 import { v4 as uuid } from "uuid";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -19,8 +20,9 @@ import "easymde/dist/easymde.min.css";
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
+const client = generateClient()
 
-Amplify.configure({ ...config, ssr: true });
+Amplify.configure(config, { ssr: true });
 
 const initialState: CreatePostInput = {
   id: "",
@@ -63,13 +65,20 @@ function CreatePost() {
     if (image) {
       const fileName = `${image.name}_${uuid()}`;
       post.coverImage = fileName;
-      await Storage.put(fileName, image);
+      try {
+        await uploadData({
+          key: fileName,
+          data: image
+        });
+      } catch (error) {
+        console.log({ error });
+      }
     }
 
-    await API.graphql({
+    await client.graphql({
       query: createPost,
       variables: { input: post },
-      authMode: "AMAZON_COGNITO_USER_POOLS",
+      authMode: "userPool",
     });
 
     router.push(`/posts/${id}`);
@@ -84,13 +93,20 @@ function CreatePost() {
     if (image) {
       const fileName = `${image.name}_${uuid()}`;
       post.coverImage = fileName;
-      await Storage.put(fileName, image);
+      try {
+        await uploadData({
+          key: fileName,
+          data: image
+        });
+      } catch (error) {
+        console.log({ error });
+      }
     }
 
-    await API.graphql({
+    await client.graphql({
       query: createPost,
       variables: { input: post },
-      authMode: "AMAZON_COGNITO_USER_POOLS",
+      authMode: "userPool",
     });
 
     router.push(`/edit-post/${id}`);
