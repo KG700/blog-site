@@ -3,10 +3,12 @@
 import type { Post, ListPostsQuery } from "../../API";
 import { useState, useEffect } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import { API } from "aws-amplify";
+import { generateClient } from "aws-amplify/api";
 import { listPosts } from "@/graphql/queries";
 import { deletePost } from "@/graphql/mutations";
 import BlogTile from "../components/blog-tile";
+
+const client = generateClient();
 
 function DraftPosts() {
   const [posts, setPosts] = useState<(Post | null)[]>([]);
@@ -21,7 +23,7 @@ function DraftPosts() {
         isPublished: { eq: false },
       },
     };
-    const { data } = (await API.graphql({
+    const { data } = (await client.graphql({
       query: listPosts,
       variables: variables,
     })) as { data: ListPostsQuery };
@@ -29,10 +31,10 @@ function DraftPosts() {
   }
 
   async function deleteBlogPost(id: string) {
-    await API.graphql({
+    await client.graphql({
       query: deletePost,
       variables: { input: { id } },
-      authMode: "AMAZON_COGNITO_USER_POOLS",
+      authMode: "userPool",
     });
 
     fetchPosts();
