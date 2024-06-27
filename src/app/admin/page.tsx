@@ -10,7 +10,7 @@ import { Amplify } from "aws-amplify";
 import config from '../../aws-exports'
 import BlogButton from '../components/blog-button';
 
-Amplify.configure({ ...config, ssr: true });
+Amplify.configure(config, { ssr: true });
 
 export default function Admin() {
 

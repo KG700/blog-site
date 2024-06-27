@@ -64,7 +64,7 @@ export default function Home() {
     await client.graphql({
       query: deletePost,
       variables: { input: { id } },
-      authMode: "AMAZON_COGNITO_USER_POOLS",
+      authMode: "userPool",
     });
 
     fetchPosts();
@@ -78,7 +78,7 @@ export default function Home() {
         alt="background image"
         width={800}
         height={800}
-        priority={true}
+        priority
       />}
       <div className="container px-10 mx-auto">
         <h1 className="text-3xl font-semibold tracking-wide mb-2 text-center">

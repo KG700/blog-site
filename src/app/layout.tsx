@@ -5,7 +5,7 @@ import { Amplify } from "aws-amplify";
 import config from "../aws-exports";
 import Nav from "./components/nav";
 
-Amplify.configure({ ...config, ssr: true });
+Amplify.configure(config, { ssr: true });
 
 const inter = Inter({ subsets: ["latin"] });
 
