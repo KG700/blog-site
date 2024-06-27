@@ -78,6 +78,7 @@ export default function Home() {
         alt="background image"
         width={800}
         height={800}
+        priority={true}
       />}
       <div className="container px-10 mx-auto">
         <h1 className="text-3xl font-semibold tracking-wide mb-2 text-center">

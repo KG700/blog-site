@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Storage } from "aws-amplify";
+import { getUrl } from "aws-amplify/storage/server";
 import Link from "next/link";
 import Image from "next/image";
 import BlogDetails from "./blog-details";
 import BlogButton from "./blog-button";
+import { runWithAmplifyServerContext } from '@/app/utils/amplifyServerUtils';
 
 interface Props {
   id: string,
@@ -36,12 +37,20 @@ export default function BlogTile({
 
   async function updateCoverImage() {
     if (coverImage) {
-      const imageKey = await Storage.get(coverImage);
-      setCoverImageUrl(imageKey);
+      try {
+        const coverImageUrl = await runWithAmplifyServerContext({
+          nextServerContext: null,
+          operation: (contextSpec: any) => getUrl(contextSpec, {
+            key: coverImage
+          })
+        })
+        setCoverImageUrl(coverImageUrl.url.toString());
+      } catch (error) {
+        console.log({ error });
+      }
     }
   }
 
-  console.log({ coverImage });
   return (
     <div className="bg-white text-blog-blue max-w-lg rounded overflow-hidden shadow-lg mb-8 mx-auto">
       <Link href={`/posts/${id}`}>
