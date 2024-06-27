@@ -2,6 +2,7 @@
 
 import type { Post, GetPostQuery } from "../../../API";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { generateClient } from "aws-amplify/api";
 import { getUrl } from "aws-amplify/storage/server";
 import { getPost } from "@/graphql/queries";
@@ -32,13 +33,17 @@ export default function Page({ params: { id } }: ParamsInterface) {
         variables: { id },
       })) as { data: GetPostQuery };
       setPost(data.getPost ?? null);
-      await updateCoverImage();
     }
-  }, [id, post?.coverImage]);
+  }, [id]);
+
+  useEffect(() => {
+    updateCoverImage();
+  }, [post?.coverImage])
 
   if (!post) return null;
 
   async function updateCoverImage() {
+    console.log({ coverImage: post?.coverImage })
     if (post?.coverImage) {
       try {
         const coverImageUrl = await runWithAmplifyServerContext({
@@ -79,12 +84,14 @@ export default function Page({ params: { id } }: ParamsInterface) {
         />
       </div>
       <p className="container text-xl mt-8 w-4/5 p-4 font-semibold">{post.summary ?? ""}</p>
-      {coverImageUrl && (
-        <img
-          src={coverImageUrl}
+      {coverImageUrl && <Image
           className="object-cover h-96 w-4/5 mt-4 mx-auto"
+          src={coverImageUrl}
+          alt="blog image"
+          width={800}
+          height={800}
         />
-      )}
+      }
       <div className="container mt-8 w-4/5 p-4 bg-white bg-opacity-75">
         <ReactMarkdown className="prose">{post.content}</ReactMarkdown>
       </div>
