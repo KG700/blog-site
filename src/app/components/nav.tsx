@@ -16,7 +16,6 @@ export default function Nav() {
 
   async function authListener() {
     Hub.listen("auth", (data) => {
-      console.log({ user: data.payload.event })
       switch (data.payload.event) {
         case "signedIn":
           return setSignedInUser(true);
