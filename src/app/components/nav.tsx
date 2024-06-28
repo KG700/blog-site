@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Hub } from "aws-amplify/utils";
-import { fetchAuthSession } from "aws-amplify/auth"
+import { getCurrentUser } from "aws-amplify/auth"
 import { usePathname } from "next/navigation";
 
 export default function Nav() {
@@ -24,9 +24,11 @@ export default function Nav() {
       }
     });
     try {
-      await fetchAuthSession();
+      await getCurrentUser();
       setSignedInUser(true);
-    } catch (error) {}
+    } catch (error) {
+      setSignedInUser(false);
+    }
   }
 
   return (
