@@ -33,19 +33,24 @@ export default function Nav() {
 
   return (
     <nav className="p-6 border-b border-gray-300">
-      <Link href="/" className={ pathname === '/' ? 'underline' : ''}>
-        <span className="mr-6 cursor-pointer">Blog Posts</span>
-      </Link>
+      {signedInUser
+        ? <Link href="/" className={ pathname === '/' ? 'underline' : ''}>
+            <span className="mr-6 cursor-pointer">Published</span>
+          </Link>
+        : <Link href="/" className={ pathname === '/' ? 'underline' : ''}>
+            <span className="mr-6 cursor-pointer">Home</span>
+          </Link>
+      }
 
       {signedInUser && (
         <Link href="/draft-posts" className={ pathname === '/draft-posts' ? 'underline' : ''}>
-          <span className="mr-6 cursor-pointer">Draft Posts</span>
+          <span className="mr-6 cursor-pointer">Drafts</span>
         </Link>
       )}
 
       {signedInUser && (
         <Link href="/create-post" className={ pathname === '/create-post' ? 'underline' : ''}>
-          <span className="mr-6 cursor-pointer">Create Post</span>
+          <span className="mr-6 cursor-pointer">Create New</span>
         </Link>
       )}
 
