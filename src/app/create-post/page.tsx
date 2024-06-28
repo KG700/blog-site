@@ -36,6 +36,7 @@ const initialState: CreatePostInput = {
 function CreatePost() {
   const [post, setPost] = useState<CreatePostInput>(initialState);
   const [image, setImage] = useState<any>(null);
+  const [hasSaved, setHasSaved] = useState<boolean>(false)
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -109,11 +110,17 @@ function CreatePost() {
       authMode: "userPool",
     });
 
-    router.push(`/edit-post/${id}`);
+    setHasSaved(true)
+    setTimeout(() => {
+      setHasSaved(false)
+      router.push(`/edit-post/${id}`);
+    }, 1500)
+
   }
 
   return (
     <div className="container px-10 mx-auto">
+      <p className={`text-light-red mt-4 block + ${hasSaved ? " visible" : "invisible"}`}>Saving and redirecting to edit page</p>
       <h1 className="text-3xl font-semibold tracking-wide mt-6">
         Create new post
       </h1>
