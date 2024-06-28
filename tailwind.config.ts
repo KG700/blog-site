@@ -26,6 +26,7 @@ const config: Config = {
       yellow: "#d9f99d",
       red: "#e11d48",
       white: "#ffffff",
+      "light-red": "#f87171"
     },
   },
   plugins: [typography],

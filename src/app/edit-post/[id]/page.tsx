@@ -32,6 +32,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   const [post, setPost] = useState<UpdatePostInput | null>(null);
   const [coverImageUrl, setCoverImageUrl] = useState<any>(null);
   const [assistantSummary, setAssistantSummary] = useState("");
+  const [hasSaved, setHasSaved] = useState<boolean>(false);
   const [newImage, setNewImage] = useState<any>(null);
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -120,7 +121,8 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     if (isPublishing) {
       router.push(`/posts/${id}`);
     } else {
-      // TODO - display a messge to say page has been saved
+      setHasSaved(true)
+      setTimeout(() => setHasSaved(false), 3000)
     }
   }
 
@@ -134,6 +136,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
 
   return (
     <div className="container px-10 mx-auto">
+      <p className={`text-light-red mt-4 block + ${hasSaved ? " visible" : "invisible"}`}>Changes have been saved</p>
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Edit post</h1>
       <BlogButton
         label="Upload Image"
