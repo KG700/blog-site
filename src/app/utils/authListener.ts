@@ -1,6 +1,5 @@
 import { Hub } from 'aws-amplify/utils';
-import { fetchAuthSession } from "aws-amplify/auth"
-
+import { getCurrentUser } from "aws-amplify/auth"
 
 export async function authListener() {
     Hub.listen('auth', (data) => {
@@ -12,7 +11,7 @@ export async function authListener() {
         }
     })
     try {
-        await fetchAuthSession()
+        await getCurrentUser()
         return true
     } catch (error) {
         return false
