@@ -1,7 +1,7 @@
 "use client";
 
 import { Authenticator, useAuthenticator, useTheme } from '@aws-amplify/ui-react';
-import "../styles.css";
+// import "../styles.css";
 import '@aws-amplify/ui-react/styles.css';
 // import { Auth } from 'aws-amplify';
 // import { useState, useEffect } from 'react';
