@@ -6,7 +6,7 @@ import Image from "next/image";
 import { generateClient } from "aws-amplify/api";
 import { getUrl } from "aws-amplify/storage/server";
 import { getPost } from "@/graphql/queries";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import ReactMarkdown from "react-markdown";
 import BlogDetails from "../../components/blog-details";
 import { authListener } from "@/app/utils/authListener";
 import BlogButton from "@/app/components/blog-button";

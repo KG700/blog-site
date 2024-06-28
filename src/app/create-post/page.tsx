@@ -35,7 +35,7 @@ const initialState: CreatePostInput = {
 
 function CreatePost() {
   const [post, setPost] = useState<CreatePostInput>(initialState);
-  const [image, setImage] = useState<Blob | null>(null);
+  const [image, setImage] = useState<any>(null);
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
