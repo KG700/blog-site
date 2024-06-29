@@ -2,7 +2,7 @@
 
 import type { Post, UpdatePostInput, GetPostQuery } from "../../../API";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useInterval } from "react";
 import { uploadData } from "aws-amplify/storage";
 import { getUrl } from "aws-amplify/storage/server";
 import { generateClient } from "aws-amplify/api";
@@ -32,7 +32,9 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   const [post, setPost] = useState<UpdatePostInput | null>(null);
   const [coverImageUrl, setCoverImageUrl] = useState<any>(null);
   const [assistantSummary, setAssistantSummary] = useState("");
-  const [hasSaved, setHasSaved] = useState<boolean>(false);
+  const [saving, setSaving] = useState<boolean>(false);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [lastSavedAgo, setLastSavedAgo] = useState<number | null>(null);
   const [newImage, setNewImage] = useState<any>(null);
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -70,6 +72,14 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
       }
     }
   }, [id, post?.coverImage]);
+
+  useInterval(() => {
+    console.log({ lastSaved });
+    if (lastSaved) {
+      setLastSavedAgo(Date.now() - lastSaved.valueOf())
+      console.log({ lastSavedAgo });
+    }
+  }, 3000)
 
   if (!post) return null;
 
@@ -121,8 +131,10 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     if (isPublishing) {
       router.push(`/posts/${id}`);
     } else {
-      setHasSaved(true)
-      setTimeout(() => setHasSaved(false), 3000)
+      setSaving(true)
+      setLastSaved(new Date())
+      console.log('saved last:', { lastSaved });
+      setTimeout(() => setSaving(false), 3000)
     }
   }
 
@@ -136,7 +148,10 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
 
   return (
     <div className="container px-10 mx-auto">
-      <p className={`text-light-red mt-4 block + ${hasSaved ? " visible" : "invisible"}`}>Changes have been saved</p>
+      <div className="container">
+        <p className={`text-light-red mt-4 block + ${saving ? " visible" : "invisible"}`}>Changes have been saved</p>
+        <p className={`float-right + ${lastSaved ? "visible" : "invisible"}`}>Last saved: {lastSavedAgo} ago</p>
+      </div>
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Edit post</h1>
       <BlogButton
         label="Upload Image"
