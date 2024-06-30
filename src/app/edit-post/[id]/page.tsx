@@ -71,7 +71,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         })
         setCoverImageUrl(imageUrl.url.toString());
       }
-      setLastSaved(updatedAt ? getDisplayDate(updatedAt) : null);
+      setLastSaved(updatedAt ? getDisplayDate(updatedAt, true) : null);
     }
   }, []);
 
@@ -119,7 +119,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         authMode: 'userPool',
       }) as { data: UpdatePostMutation};
       const { updatedAt } = response.data.updatePost ?? { updatedAt: null }
-      setLastSaved(updatedAt ? getDisplayDate(updatedAt) : null);
+      setLastSaved(updatedAt ? getDisplayDate(updatedAt, true) : null);
     } catch (error) {
       console.log({ error });
     }
