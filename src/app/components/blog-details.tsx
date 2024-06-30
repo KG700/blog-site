@@ -4,9 +4,10 @@ import { getDisplayDate } from '@/app/utils/getDisplayDate';
 interface Props {
   author: string
   publishedAt?: string
+  lastUpdatedAt?: string
 }
 
-export default function BlogDetails({ author, publishedAt }: Props) {
+export default function BlogDetails({ author, publishedAt, lastUpdatedAt }: Props) {
 
     return (
         <div className="m-8 flex items-center">
@@ -21,6 +22,9 @@ export default function BlogDetails({ author, publishedAt }: Props) {
           <h2 className="text-lg">By { author }</h2>
           {publishedAt &&
             <p className="text-sm">Published: {getDisplayDate(publishedAt)}</p>
+          }
+          {lastUpdatedAt &&
+            <p className="text-sm">Last updated: {getDisplayDate(lastUpdatedAt)}</p>
           }
         </div>
       </div>

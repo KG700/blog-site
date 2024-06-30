@@ -12,7 +12,7 @@ interface Props {
   title: string,
   summary: string,
   coverImage: string | null,
-  isPublished: boolean,
+  lastUpdatedAt?: string,
   publishedAt?: string,
   signedInUser: boolean;
   deleteFn: (id: string) => {};
@@ -24,8 +24,8 @@ export default function BlogTile({
   title,
   summary,
   coverImage,
-  isPublished,
   publishedAt,
+  lastUpdatedAt,
   signedInUser,
   deleteFn,
 }: Props) {
@@ -68,6 +68,7 @@ export default function BlogTile({
           <BlogDetails
             author={author}
             publishedAt={publishedAt}
+            lastUpdatedAt={lastUpdatedAt}
           />
           <p className="text-gray-700 text-base">{summary}</p>
         </div>

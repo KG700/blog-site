@@ -53,7 +53,7 @@ function DraftPosts() {
             author={post?.author ?? ""}
             title={post?.title ?? ""}
             summary={post?.summary ?? ""}
-            isPublished={post?.isPublished ?? false}
+            lastUpdatedAt={post?.updatedAt ?? undefined}
             coverImage={post?.coverImage ?? null}
             signedInUser={true}
             deleteFn={deleteBlogPost}

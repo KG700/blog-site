@@ -92,7 +92,6 @@ export default function Home() {
               author={post?.author ?? ""}
               title={post?.title ?? ""}
               summary={post?.summary ?? ""}
-              isPublished={post?.isPublished ?? false}
               publishedAt={post?.publishedAt ?? undefined}
               coverImage={post?.coverImage ?? null}
               signedInUser={signedInUser}
