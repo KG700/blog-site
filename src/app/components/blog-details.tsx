@@ -1,18 +1,13 @@
 import Image from "next/image";
+import { getDisplayDate } from '@/app/utils/getDisplayDate';
 
 interface Props {
   author: string
   publishedAt?: string
 }
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
 export default function BlogDetails({ author, publishedAt }: Props) {
 
-  function getDisplayDate(isoDate: string): string {
-    const date = new Date(isoDate);
-    return `${date.getDate()} ${MONTHS[date.getMonth()]} ${date.getFullYear()}`
-  }
     return (
         <div className="m-8 flex items-center">
         <Image

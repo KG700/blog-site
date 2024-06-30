@@ -1,6 +1,6 @@
 "use client";
 
-import type { Post, UpdatePostInput, GetPostQuery } from "../../../API";
+import type { UpdatePostInput, GetPostQuery, UpdatePostMutation } from "../../../API";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { useEffect, useState, useRef } from "react";
 import { uploadData } from "aws-amplify/storage";
@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { updatePost } from "../../../graphql/mutations";
-import { getPost } from "../../../graphql/queries";
 import { Amplify } from "aws-amplify";
 import config from "../../../aws-exports";
 import BlogButton from "@/app/components/blog-button";
@@ -19,6 +18,7 @@ import BlogInput from "@/app/components/blog-input";
 import BlogSummary from "@/app/components/blog-summary";
 import { assistWithSummary } from "../../../graphql/queries";
 import { runWithAmplifyServerContext } from '@/app/utils/amplifyServerUtils';
+import { getDisplayDate } from '@/app/utils/getDisplayDate';
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -32,7 +32,8 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   const [post, setPost] = useState<UpdatePostInput | null>(null);
   const [coverImageUrl, setCoverImageUrl] = useState<any>(null);
   const [assistantSummary, setAssistantSummary] = useState("");
-  const [hasSaved, setHasSaved] = useState<boolean>(false);
+  const [saving, setSaving] = useState<boolean>(false);
+  const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [newImage, setNewImage] = useState<any>(null);
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -52,12 +53,14 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
               isPublished
               author
               id
+              updatedAt
             }
           }
         `,
         variables: { id },
       })) as { data: GetPostQuery };
-      setPost(data.getPost ?? null);
+      const { updatedAt, ...post } = data.getPost ?? { updatedAt: null, id, title: "" };
+      setPost(post ?? null);
       if (data.getPost?.coverImage) {
         const imageUrl = await runWithAmplifyServerContext({
           nextServerContext: null,
@@ -68,8 +71,9 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         })
         setCoverImageUrl(imageUrl.url.toString());
       }
+      setLastSaved(updatedAt ? getDisplayDate(updatedAt, true) : null);
     }
-  }, [id, post?.coverImage]);
+  }, []);
 
   if (!post) return null;
 
@@ -109,11 +113,13 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     }
 
     try {
-      await client.graphql({
+      const response = await client.graphql({
         query: updatePost,
         variables: { input: post },
         authMode: 'userPool',
-      });
+      }) as { data: UpdatePostMutation};
+      const { updatedAt } = response.data.updatePost ?? { updatedAt: null }
+      setLastSaved(updatedAt ? getDisplayDate(updatedAt, true) : null);
     } catch (error) {
       console.log({ error });
     }
@@ -121,8 +127,8 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     if (isPublishing) {
       router.push(`/posts/${id}`);
     } else {
-      setHasSaved(true)
-      setTimeout(() => setHasSaved(false), 3000)
+      setSaving(true)
+      setTimeout(() => setSaving(false), 3000)
     }
   }
 
@@ -136,7 +142,10 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
 
   return (
     <div className="container px-10 mx-auto">
-      <p className={`text-light-red mt-4 block + ${hasSaved ? " visible" : "invisible"}`}>Changes have been saved</p>
+      <div className="container">
+        <p className={`text-light-red mt-4 block + ${saving ? " visible" : "invisible"}`}>Changes have been saved</p>
+        <p className={"float-right"}>Last updated: {lastSaved}</p>
+      </div>
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Edit post</h1>
       <BlogButton
         label="Upload Image"
