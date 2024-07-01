@@ -1,13 +1,14 @@
 "use client";
 
-import type { Post, ListPostsQuery } from "../API";
+import type { Post, PostsByStatusAndUpdatedAtQuery } from "../API";
+import { ModelSortDirection } from "../API";
 import { useState, useEffect } from "react";
 import { getUrl } from "aws-amplify/storage/server";
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/api";
 import config from "../aws-exports";
 import Image from "next/image";
-import { listPosts } from "@/graphql/queries";
+import { postsByStatusAndUpdatedAt } from "@/graphql/queries";
 import { deletePost } from "@/graphql/mutations";
 import { authListener } from "@/app/utils/authListener";
 import BlogTile from "@/app/components/blog-tile";
@@ -29,15 +30,14 @@ export default function Home() {
 
   async function fetchPosts() {
     const variables = {
-      filter: {
-        isPublished: { eq: true },
-      },
-    };
+      status: 'Published',
+      sortDirection: ModelSortDirection.DESC
+    }
     const { data } = (await client.graphql({
-      query: listPosts,
+      query: postsByStatusAndUpdatedAt,
       variables: variables,
-    })) as { data: ListPostsQuery };
-    setPosts(data.listPosts?.items ?? []);
+    })) as { data: PostsByStatusAndUpdatedAtQuery };
+    setPosts(data.postsByStatusAndUpdatedAt?.items ?? []);
   }
 
   async function getSignedInUser() {

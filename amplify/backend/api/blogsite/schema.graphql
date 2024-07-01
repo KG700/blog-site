@@ -11,15 +11,15 @@ type Query {
 type Post
   @model
   @auth(rules: [{ allow: private }, { allow: public, operations: [read] }]) {
-  # id: ID! @index(name: "postsByUsername", sortKeyFields: ["username"])
   title: String!
   summary: String
   content: String!
   coverImage: String
   # comments: [Comment] @hasMany
   author: String
-  isPublished: Boolean
   publishedAt: String
+  updatedAt: String!
+  status: String! @default(value: "Draft") @index(sortKeyFields: ["updatedAt"])
 }
 
 # type Comment

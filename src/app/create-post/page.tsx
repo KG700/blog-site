@@ -30,7 +30,7 @@ const initialState: CreatePostInput = {
   title: "",
   content: "",
   coverImage: null,
-  isPublished: false
+  status: 'Draft'
 };
 
 function CreatePost() {
@@ -60,8 +60,8 @@ function CreatePost() {
     if (!title || !content) return;
     const id = uuid();
     post.id = id;
-    post.isPublished = true;
     post.publishedAt = new Date().toISOString();
+    post.status = 'Published'
 
     if (image) {
       const fileName = `${image.name}_${uuid()}`;
@@ -89,7 +89,7 @@ function CreatePost() {
     if (!title || !content) return;
     const id = uuid();
     post.id = id;
-    post.isPublished = false;
+    post.status = 'Draft';
 
     if (image) {
       const fileName = `${image.name}_${uuid()}`;

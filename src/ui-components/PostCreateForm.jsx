@@ -6,13 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Button,
-  Flex,
-  Grid,
-  SwitchField,
-  TextField,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createPost } from "../graphql/mutations";
@@ -34,20 +28,20 @@ export default function PostCreateForm(props) {
     content: "",
     coverImage: "",
     author: "",
-    isPublished: false,
     publishedAt: "",
+    updatedAt: "",
+    status: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [summary, setSummary] = React.useState(initialValues.summary);
   const [content, setContent] = React.useState(initialValues.content);
   const [coverImage, setCoverImage] = React.useState(initialValues.coverImage);
   const [author, setAuthor] = React.useState(initialValues.author);
-  const [isPublished, setIsPublished] = React.useState(
-    initialValues.isPublished
-  );
   const [publishedAt, setPublishedAt] = React.useState(
     initialValues.publishedAt
   );
+  const [updatedAt, setUpdatedAt] = React.useState(initialValues.updatedAt);
+  const [status, setStatus] = React.useState(initialValues.status);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setTitle(initialValues.title);
@@ -55,8 +49,9 @@ export default function PostCreateForm(props) {
     setContent(initialValues.content);
     setCoverImage(initialValues.coverImage);
     setAuthor(initialValues.author);
-    setIsPublished(initialValues.isPublished);
     setPublishedAt(initialValues.publishedAt);
+    setUpdatedAt(initialValues.updatedAt);
+    setStatus(initialValues.status);
     setErrors({});
   };
   const validations = {
@@ -65,8 +60,9 @@ export default function PostCreateForm(props) {
     content: [{ type: "Required" }],
     coverImage: [],
     author: [],
-    isPublished: [],
     publishedAt: [],
+    updatedAt: [{ type: "Required" }],
+    status: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -99,8 +95,9 @@ export default function PostCreateForm(props) {
           content,
           coverImage,
           author,
-          isPublished,
           publishedAt,
+          updatedAt,
+          status,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -168,8 +165,9 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author,
-              isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -198,8 +196,9 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author,
-              isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.summary ?? value;
@@ -228,8 +227,9 @@ export default function PostCreateForm(props) {
               content: value,
               coverImage,
               author,
-              isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.content ?? value;
@@ -258,8 +258,9 @@ export default function PostCreateForm(props) {
               content,
               coverImage: value,
               author,
-              isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.coverImage ?? value;
@@ -288,8 +289,9 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author: value,
-              isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.author ?? value;
@@ -304,36 +306,6 @@ export default function PostCreateForm(props) {
         hasError={errors.author?.hasError}
         {...getOverrideProps(overrides, "author")}
       ></TextField>
-      <SwitchField
-        label="Is published"
-        defaultChecked={false}
-        isDisabled={false}
-        isChecked={isPublished}
-        onChange={(e) => {
-          let value = e.target.checked;
-          if (onChange) {
-            const modelFields = {
-              title,
-              summary,
-              content,
-              coverImage,
-              author,
-              isPublished: value,
-              publishedAt,
-            };
-            const result = onChange(modelFields);
-            value = result?.isPublished ?? value;
-          }
-          if (errors.isPublished?.hasError) {
-            runValidationTasks("isPublished", value);
-          }
-          setIsPublished(value);
-        }}
-        onBlur={() => runValidationTasks("isPublished", isPublished)}
-        errorMessage={errors.isPublished?.errorMessage}
-        hasError={errors.isPublished?.hasError}
-        {...getOverrideProps(overrides, "isPublished")}
-      ></SwitchField>
       <TextField
         label="Published at"
         isRequired={false}
@@ -348,8 +320,9 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author,
-              isPublished,
               publishedAt: value,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.publishedAt ?? value;
@@ -363,6 +336,68 @@ export default function PostCreateForm(props) {
         errorMessage={errors.publishedAt?.errorMessage}
         hasError={errors.publishedAt?.hasError}
         {...getOverrideProps(overrides, "publishedAt")}
+      ></TextField>
+      <TextField
+        label="Updated at"
+        isRequired={true}
+        isReadOnly={false}
+        value={updatedAt}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              summary,
+              content,
+              coverImage,
+              author,
+              publishedAt,
+              updatedAt: value,
+              status,
+            };
+            const result = onChange(modelFields);
+            value = result?.updatedAt ?? value;
+          }
+          if (errors.updatedAt?.hasError) {
+            runValidationTasks("updatedAt", value);
+          }
+          setUpdatedAt(value);
+        }}
+        onBlur={() => runValidationTasks("updatedAt", updatedAt)}
+        errorMessage={errors.updatedAt?.errorMessage}
+        hasError={errors.updatedAt?.hasError}
+        {...getOverrideProps(overrides, "updatedAt")}
+      ></TextField>
+      <TextField
+        label="Status"
+        isRequired={true}
+        isReadOnly={false}
+        value={status}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              summary,
+              content,
+              coverImage,
+              author,
+              publishedAt,
+              updatedAt,
+              status: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.status ?? value;
+          }
+          if (errors.status?.hasError) {
+            runValidationTasks("status", value);
+          }
+          setStatus(value);
+        }}
+        onBlur={() => runValidationTasks("status", status)}
+        errorMessage={errors.status?.errorMessage}
+        hasError={errors.status?.hasError}
+        {...getOverrideProps(overrides, "status")}
       ></TextField>
       <Flex
         justifyContent="space-between"

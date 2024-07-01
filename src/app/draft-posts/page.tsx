@@ -1,10 +1,11 @@
 "use client";
 
-import type { Post, ListPostsQuery } from "../../API";
+import type { Post, PostsByStatusAndUpdatedAtQuery } from "../../API";
+import { ModelSortDirection } from "../../API";
 import { useState, useEffect } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { generateClient } from "aws-amplify/api";
-import { listPosts } from "@/graphql/queries";
+import { postsByStatusAndUpdatedAt } from "@/graphql/queries";
 import { deletePost } from "@/graphql/mutations";
 import BlogTile from "../components/blog-tile";
 
@@ -19,15 +20,14 @@ function DraftPosts() {
 
   async function fetchPosts() {
     const variables = {
-      filter: {
-        isPublished: { eq: false },
-      },
-    };
+      status: 'Draft',
+      sortDirection: ModelSortDirection.DESC
+    }
     const { data } = (await client.graphql({
-      query: listPosts,
+      query: postsByStatusAndUpdatedAt,
       variables: variables,
-    })) as { data: ListPostsQuery };
-    setPosts(data.listPosts?.items ?? []);
+    })) as { data: PostsByStatusAndUpdatedAtQuery };
+    setPosts(data.postsByStatusAndUpdatedAt?.items ?? []);
   }
 
   async function deleteBlogPost(id: string) {

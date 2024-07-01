@@ -50,7 +50,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
               summary
               content
               coverImage
-              isPublished
+              status
               author
               id
               updatedAt
@@ -96,7 +96,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   async function updateBlogPost(isPublishing: boolean = false) {
     if (!title || !content || !post) return;
 
-    post.isPublished = isPublishing;
+    post.status = isPublishing ? 'Published' : 'Draft';
     if(isPublishing) post.publishedAt = new Date().toISOString();
 
     if (newImage) {
