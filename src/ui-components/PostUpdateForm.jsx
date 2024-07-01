@@ -83,7 +83,7 @@ export default function PostUpdateForm(props) {
     author: [],
     publishedAt: [],
     updatedAt: [{ type: "Required" }],
-    status: [],
+    status: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -118,7 +118,7 @@ export default function PostUpdateForm(props) {
           author: author ?? null,
           publishedAt: publishedAt ?? null,
           updatedAt,
-          status: status ?? null,
+          status,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -389,7 +389,7 @@ export default function PostUpdateForm(props) {
       ></TextField>
       <TextField
         label="Status"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={status}
         onChange={(e) => {

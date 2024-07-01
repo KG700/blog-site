@@ -62,7 +62,7 @@ export default function PostCreateForm(props) {
     author: [],
     publishedAt: [],
     updatedAt: [{ type: "Required" }],
-    status: [],
+    status: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -370,7 +370,7 @@ export default function PostCreateForm(props) {
       ></TextField>
       <TextField
         label="Status"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={status}
         onChange={(e) => {
