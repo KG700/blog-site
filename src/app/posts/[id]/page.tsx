@@ -81,7 +81,7 @@ export default function Page({ params: { id } }: ParamsInterface) {
         <BlogDetails
           author={post.author ?? ""}
           publishedAt={post.publishedAt ?? undefined}
-          lastUpdatedAt={!post.isPublished ? post.updatedAt : undefined}
+          lastUpdatedAt={post.status === 'Draft' ? post.updatedAt : undefined}
         />
       </div>
       <p className="container text-xl mt-8 w-4/5 p-4 font-semibold">{post.summary ?? ""}</p>

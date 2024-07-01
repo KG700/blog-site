@@ -8,7 +8,6 @@ export type CreatePostInput = {
   content: string,
   coverImage?: string | null,
   author?: string | null,
-  isPublished?: boolean | null,
   publishedAt?: string | null,
   updatedAt?: string | null,
   status?: string | null,
@@ -21,7 +20,6 @@ export type ModelPostConditionInput = {
   content?: ModelStringInput | null,
   coverImage?: ModelStringInput | null,
   author?: ModelStringInput | null,
-  isPublished?: ModelBooleanInput | null,
   publishedAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   status?: ModelStringInput | null,
@@ -71,13 +69,6 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
 export type Post = {
   __typename: "Post",
   title: string,
@@ -85,7 +76,6 @@ export type Post = {
   content: string,
   coverImage?: string | null,
   author?: string | null,
-  isPublished?: boolean | null,
   publishedAt?: string | null,
   updatedAt: string,
   status?: string | null,
@@ -99,7 +89,6 @@ export type UpdatePostInput = {
   content?: string | null,
   coverImage?: string | null,
   author?: string | null,
-  isPublished?: boolean | null,
   publishedAt?: string | null,
   updatedAt?: string | null,
   status?: string | null,
@@ -116,7 +105,6 @@ export type ModelPostFilterInput = {
   content?: ModelStringInput | null,
   coverImage?: ModelStringInput | null,
   author?: ModelStringInput | null,
-  isPublished?: ModelBooleanInput | null,
   publishedAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   status?: ModelStringInput | null,
@@ -171,7 +159,6 @@ export type ModelSubscriptionPostFilterInput = {
   content?: ModelSubscriptionStringInput | null,
   coverImage?: ModelSubscriptionStringInput | null,
   author?: ModelSubscriptionStringInput | null,
-  isPublished?: ModelSubscriptionBooleanInput | null,
   publishedAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
@@ -194,11 +181,6 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -229,7 +211,6 @@ export type CreatePostMutation = {
     content: string,
     coverImage?: string | null,
     author?: string | null,
-    isPublished?: boolean | null,
     publishedAt?: string | null,
     updatedAt: string,
     status?: string | null,
@@ -251,7 +232,6 @@ export type UpdatePostMutation = {
     content: string,
     coverImage?: string | null,
     author?: string | null,
-    isPublished?: boolean | null,
     publishedAt?: string | null,
     updatedAt: string,
     status?: string | null,
@@ -273,7 +253,6 @@ export type DeletePostMutation = {
     content: string,
     coverImage?: string | null,
     author?: string | null,
-    isPublished?: boolean | null,
     publishedAt?: string | null,
     updatedAt: string,
     status?: string | null,
@@ -302,7 +281,6 @@ export type GetPostQuery = {
     content: string,
     coverImage?: string | null,
     author?: string | null,
-    isPublished?: boolean | null,
     publishedAt?: string | null,
     updatedAt: string,
     status?: string | null,
@@ -327,7 +305,6 @@ export type ListPostsQuery = {
       content: string,
       coverImage?: string | null,
       author?: string | null,
-      isPublished?: boolean | null,
       publishedAt?: string | null,
       updatedAt: string,
       status?: string | null,
@@ -357,7 +334,6 @@ export type PostsByStatusAndUpdatedAtQuery = {
       content: string,
       coverImage?: string | null,
       author?: string | null,
-      isPublished?: boolean | null,
       publishedAt?: string | null,
       updatedAt: string,
       status?: string | null,
@@ -380,7 +356,6 @@ export type OnCreatePostSubscription = {
     content: string,
     coverImage?: string | null,
     author?: string | null,
-    isPublished?: boolean | null,
     publishedAt?: string | null,
     updatedAt: string,
     status?: string | null,
@@ -401,7 +376,6 @@ export type OnUpdatePostSubscription = {
     content: string,
     coverImage?: string | null,
     author?: string | null,
-    isPublished?: boolean | null,
     publishedAt?: string | null,
     updatedAt: string,
     status?: string | null,
@@ -422,7 +396,6 @@ export type OnDeletePostSubscription = {
     content: string,
     coverImage?: string | null,
     author?: string | null,
-    isPublished?: boolean | null,
     publishedAt?: string | null,
     updatedAt: string,
     status?: string | null,

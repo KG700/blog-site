@@ -50,7 +50,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
               summary
               content
               coverImage
-              isPublished
+              status
               author
               id
               updatedAt
@@ -96,13 +96,8 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   async function updateBlogPost(isPublishing: boolean = false) {
     if (!title || !content || !post) return;
 
-    post.isPublished = isPublishing;
-    if(isPublishing) {
-      post.publishedAt = new Date().toISOString();
-      post.status = 'Published'
-    } else {
-      post.status = 'Draft'
-    }
+    post.status = isPublishing ? 'Published' : 'Draft';
+    if(isPublishing) post.publishedAt = new Date().toISOString();
 
     if (newImage) {
       const fileName = `public/${newImage.name}_${uuid()}`;

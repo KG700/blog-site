@@ -15,7 +15,6 @@ export const onCreatePost = /* GraphQL */ `subscription OnCreatePost($filter: Mo
     content
     coverImage
     author
-    isPublished
     publishedAt
     updatedAt
     status
@@ -35,7 +34,6 @@ export const onUpdatePost = /* GraphQL */ `subscription OnUpdatePost($filter: Mo
     content
     coverImage
     author
-    isPublished
     publishedAt
     updatedAt
     status
@@ -55,7 +53,6 @@ export const onDeletePost = /* GraphQL */ `subscription OnDeletePost($filter: Mo
     content
     coverImage
     author
-    isPublished
     publishedAt
     updatedAt
     status

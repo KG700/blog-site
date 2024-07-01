@@ -18,7 +18,6 @@ export const createPost = /* GraphQL */ `mutation CreatePost(
     content
     coverImage
     author
-    isPublished
     publishedAt
     updatedAt
     status
@@ -41,7 +40,6 @@ export const updatePost = /* GraphQL */ `mutation UpdatePost(
     content
     coverImage
     author
-    isPublished
     publishedAt
     updatedAt
     status
@@ -64,7 +62,6 @@ export const deletePost = /* GraphQL */ `mutation DeletePost(
     content
     coverImage
     author
-    isPublished
     publishedAt
     updatedAt
     status

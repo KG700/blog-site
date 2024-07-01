@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -27,7 +27,6 @@ export declare type PostCreateFormInputValues = {
     content?: string;
     coverImage?: string;
     author?: string;
-    isPublished?: boolean;
     publishedAt?: string;
     updatedAt?: string;
     status?: string;
@@ -38,7 +37,6 @@ export declare type PostCreateFormValidationValues = {
     content?: ValidationFunction<string>;
     coverImage?: ValidationFunction<string>;
     author?: ValidationFunction<string>;
-    isPublished?: ValidationFunction<boolean>;
     publishedAt?: ValidationFunction<string>;
     updatedAt?: ValidationFunction<string>;
     status?: ValidationFunction<string>;
@@ -51,7 +49,6 @@ export declare type PostCreateFormOverridesProps = {
     content?: PrimitiveOverrideProps<TextFieldProps>;
     coverImage?: PrimitiveOverrideProps<TextFieldProps>;
     author?: PrimitiveOverrideProps<TextFieldProps>;
-    isPublished?: PrimitiveOverrideProps<SwitchFieldProps>;
     publishedAt?: PrimitiveOverrideProps<TextFieldProps>;
     updatedAt?: PrimitiveOverrideProps<TextFieldProps>;
     status?: PrimitiveOverrideProps<TextFieldProps>;

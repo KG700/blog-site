@@ -22,7 +22,6 @@ export const getPost = /* GraphQL */ `query GetPost($id: ID!) {
     content
     coverImage
     author
-    isPublished
     publishedAt
     updatedAt
     status
@@ -44,7 +43,6 @@ export const listPosts = /* GraphQL */ `query ListPosts(
       content
       coverImage
       author
-      isPublished
       publishedAt
       updatedAt
       status
@@ -79,7 +77,6 @@ export const postsByStatusAndUpdatedAt = /* GraphQL */ `query PostsByStatusAndUp
       content
       coverImage
       author
-      isPublished
       publishedAt
       updatedAt
       status

@@ -6,13 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Button,
-  Flex,
-  Grid,
-  SwitchField,
-  TextField,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createPost } from "../graphql/mutations";
@@ -34,7 +28,6 @@ export default function PostCreateForm(props) {
     content: "",
     coverImage: "",
     author: "",
-    isPublished: false,
     publishedAt: "",
     updatedAt: "",
     status: "",
@@ -44,9 +37,6 @@ export default function PostCreateForm(props) {
   const [content, setContent] = React.useState(initialValues.content);
   const [coverImage, setCoverImage] = React.useState(initialValues.coverImage);
   const [author, setAuthor] = React.useState(initialValues.author);
-  const [isPublished, setIsPublished] = React.useState(
-    initialValues.isPublished
-  );
   const [publishedAt, setPublishedAt] = React.useState(
     initialValues.publishedAt
   );
@@ -59,7 +49,6 @@ export default function PostCreateForm(props) {
     setContent(initialValues.content);
     setCoverImage(initialValues.coverImage);
     setAuthor(initialValues.author);
-    setIsPublished(initialValues.isPublished);
     setPublishedAt(initialValues.publishedAt);
     setUpdatedAt(initialValues.updatedAt);
     setStatus(initialValues.status);
@@ -71,7 +60,6 @@ export default function PostCreateForm(props) {
     content: [{ type: "Required" }],
     coverImage: [],
     author: [],
-    isPublished: [],
     publishedAt: [],
     updatedAt: [{ type: "Required" }],
     status: [],
@@ -107,7 +95,6 @@ export default function PostCreateForm(props) {
           content,
           coverImage,
           author,
-          isPublished,
           publishedAt,
           updatedAt,
           status,
@@ -178,7 +165,6 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author,
-              isPublished,
               publishedAt,
               updatedAt,
               status,
@@ -210,7 +196,6 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author,
-              isPublished,
               publishedAt,
               updatedAt,
               status,
@@ -242,7 +227,6 @@ export default function PostCreateForm(props) {
               content: value,
               coverImage,
               author,
-              isPublished,
               publishedAt,
               updatedAt,
               status,
@@ -274,7 +258,6 @@ export default function PostCreateForm(props) {
               content,
               coverImage: value,
               author,
-              isPublished,
               publishedAt,
               updatedAt,
               status,
@@ -306,7 +289,6 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author: value,
-              isPublished,
               publishedAt,
               updatedAt,
               status,
@@ -324,38 +306,6 @@ export default function PostCreateForm(props) {
         hasError={errors.author?.hasError}
         {...getOverrideProps(overrides, "author")}
       ></TextField>
-      <SwitchField
-        label="Is published"
-        defaultChecked={false}
-        isDisabled={false}
-        isChecked={isPublished}
-        onChange={(e) => {
-          let value = e.target.checked;
-          if (onChange) {
-            const modelFields = {
-              title,
-              summary,
-              content,
-              coverImage,
-              author,
-              isPublished: value,
-              publishedAt,
-              updatedAt,
-              status,
-            };
-            const result = onChange(modelFields);
-            value = result?.isPublished ?? value;
-          }
-          if (errors.isPublished?.hasError) {
-            runValidationTasks("isPublished", value);
-          }
-          setIsPublished(value);
-        }}
-        onBlur={() => runValidationTasks("isPublished", isPublished)}
-        errorMessage={errors.isPublished?.errorMessage}
-        hasError={errors.isPublished?.hasError}
-        {...getOverrideProps(overrides, "isPublished")}
-      ></SwitchField>
       <TextField
         label="Published at"
         isRequired={false}
@@ -370,7 +320,6 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author,
-              isPublished,
               publishedAt: value,
               updatedAt,
               status,
@@ -402,7 +351,6 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author,
-              isPublished,
               publishedAt,
               updatedAt: value,
               status,
@@ -434,7 +382,6 @@ export default function PostCreateForm(props) {
               content,
               coverImage,
               author,
-              isPublished,
               publishedAt,
               updatedAt,
               status: value,
