@@ -97,7 +97,12 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
     if (!title || !content || !post) return;
 
     post.isPublished = isPublishing;
-    if(isPublishing) post.publishedAt = new Date().toISOString();
+    if(isPublishing) {
+      post.publishedAt = new Date().toISOString();
+      post.status = 'Published'
+    } else {
+      post.status = 'Draft'
+    }
 
     if (newImage) {
       const fileName = `public/${newImage.name}_${uuid()}`;

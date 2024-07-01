@@ -38,6 +38,8 @@ export default function PostUpdateForm(props) {
     author: "",
     isPublished: false,
     publishedAt: "",
+    updatedAt: "",
+    status: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [summary, setSummary] = React.useState(initialValues.summary);
@@ -50,6 +52,8 @@ export default function PostUpdateForm(props) {
   const [publishedAt, setPublishedAt] = React.useState(
     initialValues.publishedAt
   );
+  const [updatedAt, setUpdatedAt] = React.useState(initialValues.updatedAt);
+  const [status, setStatus] = React.useState(initialValues.status);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = postRecord
@@ -62,6 +66,8 @@ export default function PostUpdateForm(props) {
     setAuthor(cleanValues.author);
     setIsPublished(cleanValues.isPublished);
     setPublishedAt(cleanValues.publishedAt);
+    setUpdatedAt(cleanValues.updatedAt);
+    setStatus(cleanValues.status);
     setErrors({});
   };
   const [postRecord, setPostRecord] = React.useState(postModelProp);
@@ -88,6 +94,8 @@ export default function PostUpdateForm(props) {
     author: [],
     isPublished: [],
     publishedAt: [],
+    updatedAt: [{ type: "Required" }],
+    status: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -122,6 +130,8 @@ export default function PostUpdateForm(props) {
           author: author ?? null,
           isPublished: isPublished ?? null,
           publishedAt: publishedAt ?? null,
+          updatedAt,
+          status: status ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -189,6 +199,8 @@ export default function PostUpdateForm(props) {
               author,
               isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -219,6 +231,8 @@ export default function PostUpdateForm(props) {
               author,
               isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.summary ?? value;
@@ -249,6 +263,8 @@ export default function PostUpdateForm(props) {
               author,
               isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.content ?? value;
@@ -279,6 +295,8 @@ export default function PostUpdateForm(props) {
               author,
               isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.coverImage ?? value;
@@ -309,6 +327,8 @@ export default function PostUpdateForm(props) {
               author: value,
               isPublished,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.author ?? value;
@@ -339,6 +359,8 @@ export default function PostUpdateForm(props) {
               author,
               isPublished: value,
               publishedAt,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.isPublished ?? value;
@@ -369,6 +391,8 @@ export default function PostUpdateForm(props) {
               author,
               isPublished,
               publishedAt: value,
+              updatedAt,
+              status,
             };
             const result = onChange(modelFields);
             value = result?.publishedAt ?? value;
@@ -382,6 +406,70 @@ export default function PostUpdateForm(props) {
         errorMessage={errors.publishedAt?.errorMessage}
         hasError={errors.publishedAt?.hasError}
         {...getOverrideProps(overrides, "publishedAt")}
+      ></TextField>
+      <TextField
+        label="Updated at"
+        isRequired={true}
+        isReadOnly={false}
+        value={updatedAt}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              summary,
+              content,
+              coverImage,
+              author,
+              isPublished,
+              publishedAt,
+              updatedAt: value,
+              status,
+            };
+            const result = onChange(modelFields);
+            value = result?.updatedAt ?? value;
+          }
+          if (errors.updatedAt?.hasError) {
+            runValidationTasks("updatedAt", value);
+          }
+          setUpdatedAt(value);
+        }}
+        onBlur={() => runValidationTasks("updatedAt", updatedAt)}
+        errorMessage={errors.updatedAt?.errorMessage}
+        hasError={errors.updatedAt?.hasError}
+        {...getOverrideProps(overrides, "updatedAt")}
+      ></TextField>
+      <TextField
+        label="Status"
+        isRequired={false}
+        isReadOnly={false}
+        value={status}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              summary,
+              content,
+              coverImage,
+              author,
+              isPublished,
+              publishedAt,
+              updatedAt,
+              status: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.status ?? value;
+          }
+          if (errors.status?.hasError) {
+            runValidationTasks("status", value);
+          }
+          setStatus(value);
+        }}
+        onBlur={() => runValidationTasks("status", status)}
+        errorMessage={errors.status?.errorMessage}
+        hasError={errors.status?.hasError}
+        {...getOverrideProps(overrides, "status")}
       ></TextField>
       <Flex
         justifyContent="space-between"
