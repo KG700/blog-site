@@ -9,7 +9,7 @@ export default function BlogSummary({ onChange, value }: Readonly<Props>) {
   const [count, setCount] = useState(0);
 
     return (
-        <label className="block my-4">
+        <label className="block mt-4 mb-10">
         <span className="text-sm font-normal">Summary</span>
         <textarea
           className="border-b pb-2 text-l focus:outline-none w-full text-gray-500 placeholder:text-gray-500 placeholder:font-normal placeholder:text-base y-2"
