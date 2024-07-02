@@ -3,6 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@testing-library/jest-dom'
 
+jest.mock('../../../aws-exports');
+jest.mock('aws-amplify');
 jest.mock('@aws-amplify/ui-react', () => {
     return {
         Authenticator: jest.fn(
