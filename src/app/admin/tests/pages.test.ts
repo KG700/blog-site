@@ -1,6 +1,7 @@
 import Admin from '../page';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Authenticator } from '@aws-amplify/ui-react';
+import config from '../../../aws-exports';
 import '@testing-library/jest-dom'
 
 jest.mock('../../../aws-exports');
