@@ -8,6 +8,51 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateAdminProfile = /* GraphQL */ `subscription OnCreateAdminProfile(
+  $filter: ModelSubscriptionAdminProfileFilterInput
+) {
+  onCreateAdminProfile(filter: $filter) {
+    id
+    displayName
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAdminProfileSubscriptionVariables,
+  APITypes.OnCreateAdminProfileSubscription
+>;
+export const onUpdateAdminProfile = /* GraphQL */ `subscription OnUpdateAdminProfile(
+  $filter: ModelSubscriptionAdminProfileFilterInput
+) {
+  onUpdateAdminProfile(filter: $filter) {
+    id
+    displayName
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAdminProfileSubscriptionVariables,
+  APITypes.OnUpdateAdminProfileSubscription
+>;
+export const onDeleteAdminProfile = /* GraphQL */ `subscription OnDeleteAdminProfile(
+  $filter: ModelSubscriptionAdminProfileFilterInput
+) {
+  onDeleteAdminProfile(filter: $filter) {
+    id
+    displayName
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAdminProfileSubscriptionVariables,
+  APITypes.OnDeleteAdminProfileSubscription
+>;
 export const onCreatePost = /* GraphQL */ `subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
   onCreatePost(filter: $filter) {
     title

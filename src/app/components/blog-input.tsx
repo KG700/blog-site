@@ -3,24 +3,37 @@ interface Props {
     label?: string;
     value?: string;
     placeholder?: string;
+    width?: 'short' | 'medium' | 'full'
     isboldFont?: boolean;
     onChange: any
   }
 
-export default function BlogInput({ label, name, value, placeholder, isboldFont, onChange }: Props) {
-    let inputClassName = "border-b pb-2 text-xl focus:outline-none w-full text-gray-500 placeholder:text-gray-500 placeholder:font-normal placeholder:text-base y-2";
+export default function BlogInput({ label, name, value, placeholder, width = 'full', isboldFont, onChange }: Props) {
+    let inputClassName = "border-b pb-2 text-xl focus:outline-none text-gray-500 placeholder:text-gray-500 placeholder:font-normal placeholder:text-base y-2";
 
     if (isboldFont) inputClassName += " font-bold"
 
+    switch(width) {
+      case 'short':
+        inputClassName += " w-1/3"
+        break;
+      case 'medium':
+        inputClassName += " w-2/3"
+        break;
+      case 'full':
+        inputClassName += " w-full"
+        break;
+    }
+
     return (
         <label className="block my-4">
-            <span className="text-sm font-normal">{label ?? ""}</span>
+            <span className="block text-sm font-normal">{label ?? ""}</span>
             <input
-            onChange={onChange}
-            name={name}
-            placeholder={placeholder ?? ""}
-            value={value ?? ""}
-            className={inputClassName}
+              onChange={onChange}
+              name={name}
+              placeholder={placeholder ?? ""}
+              value={value ?? ""}
+              className={inputClassName}
             />
       </label>
     )

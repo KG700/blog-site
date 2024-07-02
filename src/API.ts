@@ -2,31 +2,18 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreatePostInput = {
-  title: string,
-  summary?: string | null,
-  content: string,
-  coverImage?: string | null,
-  author?: string | null,
-  publishedAt?: string | null,
-  updatedAt?: string | null,
-  status: string,
+export type CreateAdminProfileInput = {
   id?: string | null,
+  displayName?: string | null,
 };
 
-export type ModelPostConditionInput = {
-  title?: ModelStringInput | null,
-  summary?: ModelStringInput | null,
-  content?: ModelStringInput | null,
-  coverImage?: ModelStringInput | null,
-  author?: ModelStringInput | null,
-  publishedAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  status?: ModelStringInput | null,
-  and?: Array< ModelPostConditionInput | null > | null,
-  or?: Array< ModelPostConditionInput | null > | null,
-  not?: ModelPostConditionInput | null,
+export type ModelAdminProfileConditionInput = {
+  displayName?: ModelStringInput | null,
+  and?: Array< ModelAdminProfileConditionInput | null > | null,
+  or?: Array< ModelAdminProfileConditionInput | null > | null,
+  not?: ModelAdminProfileConditionInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -69,6 +56,50 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type AdminProfile = {
+  __typename: "AdminProfile",
+  id: string,
+  displayName?: string | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateAdminProfileInput = {
+  id: string,
+  displayName?: string | null,
+};
+
+export type DeleteAdminProfileInput = {
+  id: string,
+};
+
+export type CreatePostInput = {
+  title: string,
+  summary?: string | null,
+  content: string,
+  coverImage?: string | null,
+  author?: string | null,
+  publishedAt?: string | null,
+  updatedAt?: string | null,
+  status: string,
+  id?: string | null,
+};
+
+export type ModelPostConditionInput = {
+  title?: ModelStringInput | null,
+  summary?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  coverImage?: ModelStringInput | null,
+  author?: ModelStringInput | null,
+  publishedAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  status?: ModelStringInput | null,
+  and?: Array< ModelPostConditionInput | null > | null,
+  or?: Array< ModelPostConditionInput | null > | null,
+  not?: ModelPostConditionInput | null,
+  createdAt?: ModelStringInput | null,
+};
+
 export type Post = {
   __typename: "Post",
   title: string,
@@ -99,20 +130,14 @@ export type DeletePostInput = {
   id: string,
 };
 
-export type ModelPostFilterInput = {
-  title?: ModelStringInput | null,
-  summary?: ModelStringInput | null,
-  content?: ModelStringInput | null,
-  coverImage?: ModelStringInput | null,
-  author?: ModelStringInput | null,
-  publishedAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  status?: ModelStringInput | null,
+export type ModelAdminProfileFilterInput = {
   id?: ModelIDInput | null,
+  displayName?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array< ModelPostFilterInput | null > | null,
-  or?: Array< ModelPostFilterInput | null > | null,
-  not?: ModelPostFilterInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelAdminProfileFilterInput | null > | null,
+  or?: Array< ModelAdminProfileFilterInput | null > | null,
+  not?: ModelAdminProfileFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -131,6 +156,34 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
+export type ModelAdminProfileConnection = {
+  __typename: "ModelAdminProfileConnection",
+  items:  Array<AdminProfile | null >,
+  nextToken?: string | null,
+};
+
+export type ModelPostFilterInput = {
+  title?: ModelStringInput | null,
+  summary?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  coverImage?: ModelStringInput | null,
+  author?: ModelStringInput | null,
+  publishedAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  status?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelPostFilterInput | null > | null,
+  or?: Array< ModelPostFilterInput | null > | null,
+  not?: ModelPostFilterInput | null,
+};
+
 export type ModelPostConnection = {
   __typename: "ModelPostConnection",
   items:  Array<Post | null >,
@@ -147,25 +200,28 @@ export type ModelStringKeyConditionInput = {
   beginsWith?: string | null,
 };
 
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
-
-export type ModelSubscriptionPostFilterInput = {
-  title?: ModelSubscriptionStringInput | null,
-  summary?: ModelSubscriptionStringInput | null,
-  content?: ModelSubscriptionStringInput | null,
-  coverImage?: ModelSubscriptionStringInput | null,
-  author?: ModelSubscriptionStringInput | null,
-  publishedAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  status?: ModelSubscriptionStringInput | null,
+export type ModelSubscriptionAdminProfileFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  displayName?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionPostFilterInput | null > | null,
-  or?: Array< ModelSubscriptionPostFilterInput | null > | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAdminProfileFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAdminProfileFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -183,19 +239,64 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
+export type ModelSubscriptionPostFilterInput = {
+  title?: ModelSubscriptionStringInput | null,
+  summary?: ModelSubscriptionStringInput | null,
+  content?: ModelSubscriptionStringInput | null,
+  coverImage?: ModelSubscriptionStringInput | null,
+  author?: ModelSubscriptionStringInput | null,
+  publishedAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  status?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionPostFilterInput | null > | null,
+  or?: Array< ModelSubscriptionPostFilterInput | null > | null,
+};
+
+export type CreateAdminProfileMutationVariables = {
+  input: CreateAdminProfileInput,
+  condition?: ModelAdminProfileConditionInput | null,
+};
+
+export type CreateAdminProfileMutation = {
+  createAdminProfile?:  {
+    __typename: "AdminProfile",
+    id: string,
+    displayName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateAdminProfileMutationVariables = {
+  input: UpdateAdminProfileInput,
+  condition?: ModelAdminProfileConditionInput | null,
+};
+
+export type UpdateAdminProfileMutation = {
+  updateAdminProfile?:  {
+    __typename: "AdminProfile",
+    id: string,
+    displayName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteAdminProfileMutationVariables = {
+  input: DeleteAdminProfileInput,
+  condition?: ModelAdminProfileConditionInput | null,
+};
+
+export type DeleteAdminProfileMutation = {
+  deleteAdminProfile?:  {
+    __typename: "AdminProfile",
+    id: string,
+    displayName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
 export type CreatePostMutationVariables = {
@@ -267,6 +368,42 @@ export type AssistWithSummaryQueryVariables = {
 
 export type AssistWithSummaryQuery = {
   assistWithSummary?: string | null,
+};
+
+export type GetAdminProfileQueryVariables = {
+  id: string,
+};
+
+export type GetAdminProfileQuery = {
+  getAdminProfile?:  {
+    __typename: "AdminProfile",
+    id: string,
+    displayName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListAdminProfilesQueryVariables = {
+  id?: string | null,
+  filter?: ModelAdminProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListAdminProfilesQuery = {
+  listAdminProfiles?:  {
+    __typename: "ModelAdminProfileConnection",
+    items:  Array< {
+      __typename: "AdminProfile",
+      id: string,
+      displayName?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
 };
 
 export type GetPostQueryVariables = {
@@ -341,6 +478,48 @@ export type PostsByStatusAndUpdatedAtQuery = {
       createdAt: string,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateAdminProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionAdminProfileFilterInput | null,
+};
+
+export type OnCreateAdminProfileSubscription = {
+  onCreateAdminProfile?:  {
+    __typename: "AdminProfile",
+    id: string,
+    displayName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateAdminProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionAdminProfileFilterInput | null,
+};
+
+export type OnUpdateAdminProfileSubscription = {
+  onUpdateAdminProfile?:  {
+    __typename: "AdminProfile",
+    id: string,
+    displayName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteAdminProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionAdminProfileFilterInput | null,
+};
+
+export type OnDeleteAdminProfileSubscription = {
+  onDeleteAdminProfile?:  {
+    __typename: "AdminProfile",
+    id: string,
+    displayName?: string | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 

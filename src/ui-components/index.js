@@ -4,6 +4,8 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
+export { default as AdminProfileCreateForm } from "./AdminProfileCreateForm";
+export { default as AdminProfileUpdateForm } from "./AdminProfileUpdateForm";
 export { default as PostCreateForm } from "./PostCreateForm";
 export { default as PostUpdateForm } from "./PostUpdateForm";
 export { default as studioTheme } from "./studioTheme";

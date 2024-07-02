@@ -15,6 +15,48 @@ export const assistWithSummary = /* GraphQL */ `query AssistWithSummary($summary
   APITypes.AssistWithSummaryQueryVariables,
   APITypes.AssistWithSummaryQuery
 >;
+export const getAdminProfile = /* GraphQL */ `query GetAdminProfile($id: ID!) {
+  getAdminProfile(id: $id) {
+    id
+    displayName
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetAdminProfileQueryVariables,
+  APITypes.GetAdminProfileQuery
+>;
+export const listAdminProfiles = /* GraphQL */ `query ListAdminProfiles(
+  $id: ID
+  $filter: ModelAdminProfileFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listAdminProfiles(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      displayName
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAdminProfilesQueryVariables,
+  APITypes.ListAdminProfilesQuery
+>;
 export const getPost = /* GraphQL */ `query GetPost($id: ID!) {
   getPost(id: $id) {
     title
