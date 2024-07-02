@@ -7,7 +7,7 @@ import '@aws-amplify/ui-react/styles.css';
 // import { useState, useEffect } from 'react';
 import { View, Heading, Button } from '@aws-amplify/ui-react';
 import { Amplify } from "aws-amplify";
-import config from '../../aws-exports'
+import config from '../../aws-exports';
 import BlogButton from '../components/blog-button';
 
 Amplify.configure(config, { ssr: true });
