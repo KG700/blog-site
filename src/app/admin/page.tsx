@@ -1,29 +1,29 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { Amplify } from "aws-amplify";
 import { Authenticator } from '@aws-amplify/ui-react';
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import { generateClient } from "aws-amplify/api";
-import { useState, useEffect } from "react";
-import '@aws-amplify/ui-react/styles.css';
-import { Amplify } from "aws-amplify";
 import { getAdminProfile } from "../../graphql/queries";
 import { createAdminProfile, updateAdminProfile } from "../../graphql/mutations";
 import type { GetAdminProfileQuery } from "../../API";
 import config from '../../aws-exports';
 import BlogButton from '../components/blog-button';
 import BlogInput from '../components/blog-input';
+import '@aws-amplify/ui-react/styles.css';
 
 Amplify.configure(config, { ssr: true });
 const client = generateClient();
 
-export default function Admin() {
+export default function Admin(): JSX.Element {
     const [userId, setUserId] = useState<string>("");
     const [displayName, setDisplayName] = useState<string | null>(null)
     const [isNewUser, setIsNewUser] = useState<boolean>(false)
 
     useEffect(() => {
         getUserAttributes();
-    }, [])
+    })
 
     async function getUserAttributes() {
         try {
@@ -64,7 +64,7 @@ export default function Admin() {
         <Authenticator hideSignUp >
             {({ signOut, user }) => (
                 <main className='container'>
-                    <h1>Hello {isNewUser ? user?.username : displayName}</h1>
+                    <h1>Hello {displayName ?? user?.username}</h1>
                     <BlogInput
                         name='displayName'
                         label="Display Name"
