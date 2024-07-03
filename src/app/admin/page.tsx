@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Amplify } from "aws-amplify";
 import { Authenticator } from '@aws-amplify/ui-react';
-import { fetchUserAttributes } from 'aws-amplify/auth';
+import { AuthUser, fetchUserAttributes } from 'aws-amplify/auth';
 import { generateClient } from "aws-amplify/api";
 import { getAdminProfile } from "../../graphql/queries";
 import { createAdminProfile, updateAdminProfile } from "../../graphql/mutations";
@@ -14,16 +14,17 @@ import BlogInput from '../components/blog-input';
 import '@aws-amplify/ui-react/styles.css';
 
 Amplify.configure(config, { ssr: true });
-const client = generateClient();
 
 export default function Admin(): JSX.Element {
+    const client = generateClient();
+
     const [userId, setUserId] = useState<string>("");
     const [displayName, setDisplayName] = useState<string | null>(null)
     const [isNewUser, setIsNewUser] = useState<boolean>(false)
 
     useEffect(() => {
         getUserAttributes();
-    })
+    }, [])
 
     async function getUserAttributes() {
         try {
@@ -52,12 +53,16 @@ export default function Admin(): JSX.Element {
         setDisplayName(e?.target.value as string);
     }
 
-    async function saveProfile() {
+    async function saveProfile(user: AuthUser | undefined) {
         const query = isNewUser ? createAdminProfile : updateAdminProfile;
-        await client.graphql({
-            query: query,
-            variables: { input: { id: userId, displayName: displayName ?? user?.username ?? 'no-name' }}
-        })
+        try {
+            await client.graphql({
+                query: query,
+                variables: { input: { id: userId, displayName: displayName ?? user?.username ?? 'no-name' }}
+            })
+        } catch (error) {
+            console.log({ error })
+        }
     }
 
     return (
@@ -75,7 +80,7 @@ export default function Admin(): JSX.Element {
                     <BlogButton
                         label="Save"
                         type="primary"
-                        onClickFn={saveProfile}
+                        onClickFn={(user: AuthUser | undefined) => saveProfile(user)}
                     />
 
                     <BlogButton
@@ -89,5 +94,3 @@ export default function Admin(): JSX.Element {
 
     )
 }
-
-// export default withAuthenticator(Admin);
