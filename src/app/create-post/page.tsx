@@ -33,7 +33,7 @@ const initialState: CreatePostInput = {
   status: 'Draft'
 };
 
-function CreatePost() {
+function CreatePost(): JSX.Element {
   const [post, setPost] = useState<CreatePostInput>(initialState);
   const [image, setImage] = useState<any>(null);
   const [hasSaved, setHasSaved] = useState<boolean>(false)
