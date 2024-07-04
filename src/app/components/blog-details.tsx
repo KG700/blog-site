@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getDisplayDate } from '@/app/utils/getDisplayDate';
+import { getDisplayDate } from '../utils/getDisplayDate';
 
 interface Props {
   author: string
