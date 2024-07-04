@@ -180,7 +180,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         label="Title"
         value={post.title ?? ""}
         placeholder="Enter blog title"
-        isboldFont={true}
+        isBoldFont={true}
         onChange={onChange}
       />
       <BlogSummary

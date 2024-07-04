@@ -4,14 +4,14 @@ interface Props {
     value?: string;
     placeholder?: string;
     width?: 'short' | 'medium' | 'full'
-    isboldFont?: boolean;
+    isBoldFont?: boolean;
     onChange: any
   }
 
-export default function BlogInput({ label, name, value, placeholder, width = 'full', isboldFont, onChange }: Props) {
+export default function BlogInput({ label, name, value, placeholder, width = 'full', isBoldFont, onChange }: Props) {
     let inputClassName = "border-b pb-2 text-xl focus:outline-none text-gray-500 placeholder:text-gray-500 placeholder:font-normal placeholder:text-base y-2";
 
-    if (isboldFont) inputClassName += " font-bold"
+    if (isBoldFont) inputClassName += " font-bold"
 
     switch(width) {
       case 'short':
