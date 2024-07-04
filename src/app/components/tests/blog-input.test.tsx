@@ -33,12 +33,10 @@ describe('blog-input', () => {
             />
         )
 
-
         const inputElement = screen.getByRole('textbox');
         fireEvent.change(inputElement, { target: { value: 'new value' } });
 
         expect(mockOnChange).toHaveBeenCalled();
-
     });
 
     it('applies the correct class name based on the width prop', () => {
