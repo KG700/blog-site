@@ -20,7 +20,7 @@ export default function BlogButton({ label, type, onClickFn }: Props) {
     }
 
     return (
-    <button
+      <button
         className={className}
         onClick={onClickFn}
       >
