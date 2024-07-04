@@ -151,7 +151,7 @@ function CreatePost() {
         label="Title"
         value={post.title ?? ""}
         placeholder="Enter blog title"
-        isboldFont={true}
+        isBoldFont={true}
         onChange={onChange}
       />
       <BlogSummary

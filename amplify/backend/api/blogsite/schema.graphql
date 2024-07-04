@@ -22,6 +22,11 @@ type Post
   status: String! @default(value: "Draft") @index(sortKeyFields: ["updatedAt"])
 }
 
+type AdminProfile @model {
+  userId: ID! @primaryKey
+  displayName: String!
+}
+
 # type Comment
 #   @model
 #   @auth(rules: [{ allow: owner }, { allow: public, operations: [read] }]) {

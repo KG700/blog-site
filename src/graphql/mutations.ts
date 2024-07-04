@@ -8,6 +8,54 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createAdminProfile = /* GraphQL */ `mutation CreateAdminProfile(
+  $input: CreateAdminProfileInput!
+  $condition: ModelAdminProfileConditionInput
+) {
+  createAdminProfile(input: $input, condition: $condition) {
+    id
+    displayName
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateAdminProfileMutationVariables,
+  APITypes.CreateAdminProfileMutation
+>;
+export const updateAdminProfile = /* GraphQL */ `mutation UpdateAdminProfile(
+  $input: UpdateAdminProfileInput!
+  $condition: ModelAdminProfileConditionInput
+) {
+  updateAdminProfile(input: $input, condition: $condition) {
+    id
+    displayName
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAdminProfileMutationVariables,
+  APITypes.UpdateAdminProfileMutation
+>;
+export const deleteAdminProfile = /* GraphQL */ `mutation DeleteAdminProfile(
+  $input: DeleteAdminProfileInput!
+  $condition: ModelAdminProfileConditionInput
+) {
+  deleteAdminProfile(input: $input, condition: $condition) {
+    id
+    displayName
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAdminProfileMutationVariables,
+  APITypes.DeleteAdminProfileMutation
+>;
 export const createPost = /* GraphQL */ `mutation CreatePost(
   $input: CreatePostInput!
   $condition: ModelPostConditionInput
