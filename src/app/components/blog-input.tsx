@@ -8,7 +8,7 @@ interface Props {
     onChange: any
   }
 
-export default function BlogInput({ label, name, value, placeholder, width = 'full', isBoldFont, onChange }: Props) {
+export default function BlogInput({ label, name, value, placeholder, width = 'full', isBoldFont, onChange }: Readonly<Props>) {
     let inputClassName = "border-b pb-2 text-xl focus:outline-none text-gray-500 placeholder:text-gray-500 placeholder:font-normal placeholder:text-base y-2";
 
     if (isBoldFont) inputClassName += " font-bold"

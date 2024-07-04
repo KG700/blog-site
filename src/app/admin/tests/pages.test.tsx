@@ -29,13 +29,12 @@ jest.mock('@aws-amplify/ui-react', () => {
 
 describe('Admin page', () => {
     const mockGraphql = jest.fn();
-    let clientSpy: jest.SpyInstance;
 
     beforeEach(() => {
         jest.resetModules();
         jest.clearAllMocks();
         mockGraphql.mockResolvedValue({ data: {}})
-        clientSpy = jest.spyOn(api, 'generateClient').mockReturnValue({ graphql: mockGraphql });
+        jest.spyOn(api, 'generateClient').mockReturnValue({ graphql: mockGraphql });
     })
     it('renders the Authenticator component', async () => {
         await act(async () => render(<Admin />));
