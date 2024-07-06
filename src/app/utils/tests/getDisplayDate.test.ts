@@ -3,7 +3,7 @@ import { getDisplayDate } from '../getDisplayDate';
 describe('getDisplayDate', () => {
     beforeEach(() => {
         jest.useFakeTimers();
-        jest.setSystemTime(new Date(Date.UTC(2024, 6, 15)));
+        jest.setSystemTime(new Date(Date.UTC(2024, 6, 15, 10, 8)));
       });
 
     afterAll(() => {
@@ -38,7 +38,7 @@ describe('getDisplayDate', () => {
         it('returns today when passed todays isoDate', () => {
             const todaysDate = new Date()
             const theDate = getDisplayDate(todaysDate.toISOString(), true)
-            expect(theDate).toEqual('today at 1:00')
+            expect(theDate).toEqual('today at 11:08')
         })
 
         it('returns yesteday when passed yesterdays isoDate', () => {
@@ -46,7 +46,7 @@ describe('getDisplayDate', () => {
             const yesterdaysDate = new Date(todaysDate.setDate(todaysDate.getDate() - 1));
 
             const theDate = getDisplayDate(yesterdaysDate.toISOString(), true)
-            expect(theDate).toEqual('yesterday at 1:00')
+            expect(theDate).toEqual('yesterday at 11:08')
         })
 
         it('returns date when passed date from 2 days ago isoDate', () => {
@@ -54,7 +54,7 @@ describe('getDisplayDate', () => {
             const twoDaysAgoDate = new Date(todaysDate.setDate(todaysDate.getDate() - 2));
 
             const theDate = getDisplayDate(twoDaysAgoDate.toISOString(), true)
-            expect(theDate).toEqual('13 Jul 2024 at 1:00')
+            expect(theDate).toEqual('13 Jul 2024 at 11:08')
         })
     })
 
