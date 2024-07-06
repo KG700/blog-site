@@ -20,7 +20,6 @@ import "easymde/dist/easymde.min.css";
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
-const client = generateClient()
 
 Amplify.configure(config, { ssr: true });
 
@@ -34,6 +33,8 @@ const initialState: CreatePostInput = {
 };
 
 function CreatePost(): JSX.Element {
+  const client = generateClient()
+
   const [post, setPost] = useState<CreatePostInput>(initialState);
   const [image, setImage] = useState<any>(null);
   const [hasSaved, setHasSaved] = useState<boolean>(false)
@@ -174,6 +175,7 @@ function CreatePost(): JSX.Element {
         ref={hiddenFileInput}
         className="absolute w-0 h-0"
         onChange={handleChange}
+        data-testid='file-input'
       />
     </div>
   );
