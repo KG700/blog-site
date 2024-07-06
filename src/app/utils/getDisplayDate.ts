@@ -4,7 +4,7 @@ export function getDisplayDate(isoDate: string, addTimeStamp?: boolean): string 
     const date = new Date(isoDate);
 
     const theDay = getDisplayDay(date)
-    const timeStamp = addTimeStamp ? ` at ${date.getHours()}:${date.getMinutes()}` : "";
+    const timeStamp = addTimeStamp ? ` at ${date.getHours()}:${('0' + date.getMinutes()).slice(-2)}` : "";
 
     return `${theDay}${timeStamp}`;
   }
