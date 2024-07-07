@@ -13,12 +13,12 @@ import Image from "next/image";
 import { updatePost } from "../../../graphql/mutations";
 import { Amplify } from "aws-amplify";
 import config from "../../../aws-exports";
-import BlogButton from "@/app/components/blog-button";
-import BlogInput from "@/app/components/blog-input";
-import BlogSummary from "@/app/components/blog-summary";
+import BlogButton from "../../components/blog-button";
+import BlogInput from "../../components/blog-input";
+import BlogSummary from "../../components/blog-summary";
 import { assistWithSummary } from "../../../graphql/queries";
-import { runWithAmplifyServerContext } from '@/app/utils/amplifyServerUtils';
-import { getDisplayDate } from '@/app/utils/getDisplayDate';
+import { runWithAmplifyServerContext } from '../../utils/amplifyServerUtils';
+import { getDisplayDate } from '../../utils/getDisplayDate';
 import "easymde/dist/easymde.min.css";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -26,9 +26,10 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 });
 
 Amplify.configure(config, { ssr: true });
-const client = generateClient();
 
 function EditPost({ params: { id } }: { params: { id: string } }) {
+  const client = generateClient();
+
   const [post, setPost] = useState<UpdatePostInput | null>(null);
   const [coverImageUrl, setCoverImageUrl] = useState<any>(null);
   const [assistantSummary, setAssistantSummary] = useState("");
@@ -143,7 +144,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
   return (
     <div className="container px-10 mx-auto">
       <div className="container">
-        <p className={`text-light-red mt-4 block + ${saving ? " visible" : "invisible"}`}>Changes have been saved</p>
+        <p className={`text-light-red mt-4 block ${saving ? " visible" : "invisible"}`}>Changes have been saved</p>
         <p className={"float-right"}>Last updated: {lastSaved}</p>
       </div>
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Edit post</h1>
@@ -209,6 +210,7 @@ function EditPost({ params: { id } }: { params: { id: string } }) {
         ref={hiddenFileInput}
         className="absolute w-0 h-0"
         onChange={handleChange}
+        data-testid='file-input'
       />
     </div>
   );
