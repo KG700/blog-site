@@ -1,5 +1,5 @@
 import EditPost from '../page';
-import { render, screen, act, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import * as api from "aws-amplify/api";
 import * as router from "next/navigation";
 import '@testing-library/jest-dom';
@@ -13,9 +13,7 @@ jest.mock('uuid', () => ({
 jest.mock('@aws-amplify/ui-react', () => ({
     withAuthenticator: (Component: any) => (props: any) => <Component {...props} />
 }));
-jest.mock('../../../utils/amplifyServerUtils', () => {
-    runWithAmplifyServerContext: jest.fn();
-});
+jest.mock('../../../utils/amplifyServerUtils', () => jest.fn());
 jest.mock('../../../../graphql/mutations', () => {
     return {
         updatePost: 'updateBlogPostQuery',
