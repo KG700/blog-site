@@ -25,7 +25,7 @@ jest.mock('../../../graphql/mutations', () => {
 global.URL.createObjectURL = jest.fn(() => 'blob:http://example.com/68806f85-d2d7-49a6-b889-6d4d1d273102');
 
 // eslint-disable-next-line react/display-name
-jest.mock('next/dynamic', () => () => ({ value, onChange }: { value: string, onChange: () => {}}) => {
+jest.mock('next/dynamic', () => () => ({ value, onChange }: { value: string, onChange: (value: string) => {}}) => {
 return (
     <textarea
         data-testid="blog-content"
