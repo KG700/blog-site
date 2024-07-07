@@ -13,13 +13,8 @@ jest.mock('uuid', () => ({
 jest.mock('@aws-amplify/ui-react', () => ({
     withAuthenticator: (Component: any) => (props: any) => <Component {...props} />
 }));
-jest.mock('../../../utils/amplifyServerUtils',() => {
-    runWithAmplifyServerContext: () => {
-        return {
-            expiresAt: new Date(),
-            url: {}
-        }
-    }
+jest.mock('../../../utils/amplifyServerUtils', () => {
+    runWithAmplifyServerContext: jest.fn();
 });
 jest.mock('../../../../graphql/mutations', () => {
     return {
