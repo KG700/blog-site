@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, type ChangeEvent } from "react";
-import type { UpdatePostInput, GetPostQuery, UpdatePostMutation, CreatePostMutation } from "../../API";
+import type { GetPostQuery } from "../../API";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -23,7 +23,7 @@ interface Props {
     id?: string
 }
 
-export default function BlogEditing({ id }: Props) {
+export default function BlogEditing({ id }: Readonly<Props>) {
     const client = generateClient();
 
     const [blogId, setBlogId] = useState<string | null>(null)

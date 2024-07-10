@@ -1,19 +1,16 @@
 "use client";
 
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import { useState } from "react";
 import { generateClient } from "aws-amplify/api";
 import { Amplify } from "aws-amplify";
 import config from "../../../aws-exports";
-import BlogButton from "../../components/blog-button";
 import BlogEditing from '../../components/blog-editing';
-import { assistWithSummary } from "../../../graphql/queries";
+// import { assistWithSummary } from "../../../graphql/queries";
 import "easymde/dist/easymde.min.css";
 
 Amplify.configure(config, { ssr: true });
 
 function EditPost({ params: { id } }: { params: { id: string } }) {
-  const client = generateClient();
 
   // const [assistantSummary, setAssistantSummary] = useState("");
 

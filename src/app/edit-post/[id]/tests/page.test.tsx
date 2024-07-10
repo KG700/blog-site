@@ -2,7 +2,6 @@ import EditPost from '../page';
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import * as api from "aws-amplify/api";
 import * as router from "next/navigation";
-// import {} from '../../../utils/amplifyServerUtils';
 import '@testing-library/jest-dom';
 
 jest.mock("aws-amplify/storage");
