@@ -106,19 +106,20 @@ export default function BlogEditing({ id }: Readonly<Props>) {
               authMode: 'userPool',
             });
             saveUpdatedAtAndId(response.data?.updatePost)
+            if (isPublishing) router.push(`/posts/${blogId}`);
           } else {
             const response = await client.graphql({
               query: createPost,
               variables: { input },
               authMode: 'userPool',
             });
-            saveUpdatedAtAndId(response.data?.createPost)
+            const { id } = saveUpdatedAtAndId(response.data?.createPost)
+            if (isPublishing) router.push(`/posts/${id}`);
           }
         } catch (error) {
           console.log({ error });
         }
 
-        if (isPublishing) router.push(`/posts/${id}`);
 
         setSaving(true)
         setTimeout(() => setSaving(false), 3000)
@@ -142,6 +143,7 @@ export default function BlogEditing({ id }: Readonly<Props>) {
 
       setLastSaved(updatedAt ? getDisplayDate(updatedAt, true) : null);
       if(!blogId && savedBlogId) setBlogId(savedBlogId);
+      return{ id: savedBlogId };
     }
 
     return (
