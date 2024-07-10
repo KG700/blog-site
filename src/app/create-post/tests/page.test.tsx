@@ -11,6 +11,11 @@ jest.mock('uuid', () => ({
 jest.mock('@aws-amplify/ui-react', () => ({
     withAuthenticator: (Component: any) => (props: any) => <Component {...props} />
   }));
+  jest.mock('../../utils/amplifyServerUtils', () => {
+    return {
+        runWithAmplifyServerContext: jest.fn().mockReturnValue({ url: 'data:image/png;base64,iVBORw0KG' })
+    }
+});
 
 jest.mock('next/navigation', () => ({
     useRouter: jest.fn().mockReturnValue({ push: jest.fn() })
@@ -26,13 +31,13 @@ global.URL.createObjectURL = jest.fn(() => 'blob:http://example.com/68806f85-d2d
 
 // eslint-disable-next-line react/display-name
 jest.mock('next/dynamic', () => () => ({ value, onChange }: { value: string, onChange: (value: string) => {}}) => {
-return (
-    <textarea
-        data-testid="blog-content"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-    />
-);
+    return (
+        <textarea
+            data-testid="blog-content"
+            value={value}
+            onChange={e => onChange(e.target.value)}
+        />
+    );
 });
 
 describe('create-post', () => {
@@ -40,6 +45,8 @@ describe('create-post', () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+        jest.useFakeTimers();
+        jest.setSystemTime(new Date(Date.UTC(2024, 6, 15, 10, 8)));
         jest.spyOn(api, 'generateClient').mockReturnValue({ graphql: mockGraphql });
     })
 
@@ -96,10 +103,10 @@ describe('create-post', () => {
 
         const fileInput = screen.getByTestId('file-input');
 
-        expect(screen.queryByAltText('blog picture')).not.toBeInTheDocument();
+        expect(screen.queryByAltText('blog image')).not.toBeInTheDocument();
         fireEvent.change(fileInput, { target: { files: [mockImage] } })
 
-        expect(screen.queryByAltText('blog picture')).toBeInTheDocument();
+        expect(screen.queryByAltText('blog image')).toBeInTheDocument();
     });
 
     describe('when save button pressed', () => {
@@ -271,7 +278,8 @@ describe('create-post', () => {
                             content: 'Some blog content',
                             coverImage: null,
                             status: "Published",
-                            title: "Blog title"
+                            title: "Blog title",
+                            publishedAt: new Date().toISOString()
                         })
                     }
                 })
@@ -306,7 +314,8 @@ describe('create-post', () => {
                             content: 'Some blog content',
                             coverImage: 'blog-image.png_68ce0934',
                             status: "Published",
-                            title: "Blog title"
+                            title: "Blog title",
+                            publishedAt: new Date().toISOString()
                         })
                     }
                 })
